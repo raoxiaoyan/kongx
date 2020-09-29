@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- slf4j日志配置文件 -->
+<configuration debug="true" scan="true" scanPeriod="30 seconds">
+
+    <contextName>${HOSTNAME}</contextName>
+
+    <!-- 设置日志输出根目录 -->
+    <property name="prjName" value="kongx"/>
+    <property name="log.dir" value="logs"/>
+    <property name="encoding" value="UTF-8"/>
+
+    <property name="normal-pattern"
+              value="%-5level|[%X{ipAddr}]|[%X{userID}]|[%X{trackID}]|%d{yy-MM-dd.HH:mm:ss}|%logger{40}.%M:%L | %msg%n"/>
+    <property name="console-pattern"
+              value="%-5level|[%X{ipAddr}]|[%X{userID}]|[%X{trackID}]|%d{yy-MM-dd.HH:mm:ss}|%-40.40logger{0}|%msg%n"/>
+    <property name="plain-pattern" value="%.-5level|%d{yy-MM-dd.HH:mm:ss}|%msg%n"/>
+
+    <!-- log file default -->
+
+    <appender name="${prjName}_busi" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>busi</key>
+            <defaultValue>business</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="${prjName}_${busi}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <prudent>false</prudent>
+                <Append>true</Append>
+                <encoder>
+                    <pattern>${normal-pattern}</pattern>
+                    <charset>${encoding}</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${log.dir}/${prjName}_${busi}.%d{yyyy-MM-dd}.log
+                    </fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <appender name="${prjName}_mapper" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>mapper</key>
+            <defaultValue>mapper</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="${prjName}_${mapper}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <prudent>false</prudent>
+                <Append>true</Append>
+                <encoder>
+                    <pattern>${normal-pattern}</pattern>
+                    <charset>${encoding}</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${log.dir}/${prjName}_${mapper}.%d{yyyy-MM-dd}.log
+                    </fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+    <appender name="${prjName}_service" class="ch.qos.logback.classic.sift.SiftingAppender">
+        <discriminator>
+            <key>mapper</key>
+            <defaultValue>service</defaultValue>
+        </discriminator>
+        <sift>
+            <appender name="${prjName}_${mapper}" class="ch.qos.logback.core.rolling.RollingFileAppender">
+                <prudent>false</prudent>
+                <Append>true</Append>
+                <encoder>
+                    <pattern>${normal-pattern}</pattern>
+                    <charset>${encoding}</charset>
+                </encoder>
+                <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+                    <fileNamePattern>${log.dir}/${prjName}_${mapper}.%d{yyyy-MM-dd}.log
+                    </fileNamePattern>
+                    <maxHistory>30</maxHistory>
+                </rollingPolicy>
+            </appender>
+        </sift>
+    </appender>
+
+
+    <appender name="${prjName}_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <prudent>true</prudent>
+        <Append>true</Append>
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+            <charset>${encoding}</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.dir}/${prjName}_error.%d{yyyy-MM-dd}.log
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${normal-pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- logger 配置 -->
+    <logger name="org.springframework.beans" level="info" addtivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="org.springframework.test" level="info" addtivity="false">
+        <appender-ref ref="console"/>
+    </logger>
+
+    <logger name="com.kongx.serve.service" level="debug" addtivity="false">
+        <appender-ref ref="${prjName}_service"/>
+        <appender-ref ref="console"/>
+    </logger>
+
+
+    <logger name="com.kongx.serve.mapper" level="debug" addtivity="false">
+        <appender-ref ref="${prjName}_mapper"/>
+    </logger>
+
+    <logger name="com.kongx" level="debug" additivity="false">
+        <appender-ref ref="${prjName}_busi"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <appender-ref ref="${prjName}_error"/>
+        <appender-ref ref="${prjName}_busi"/>
+    </root>
+</configuration>

@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: kongserve
+  profiles:
+    active: @activatedProfile@
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+server:
+  port: 8095
+  servlet:
+    context-path: /
+mybatis:
+  configuration:
+    default-fetch-size: 100
+    default-statement-timeout: 30
+    map-underscore-to-camel-case: true
+  type-handlers-package: com.kongx.common.handler
+pagehelper:
+  support-methods-arguments: true

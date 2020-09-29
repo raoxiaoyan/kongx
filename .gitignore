@@ -1,0 +1,36 @@
+catalina.base_IS_UNDEFINED/
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+*.db
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+logs
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+### maven ###
+.mvn
+mvnw
