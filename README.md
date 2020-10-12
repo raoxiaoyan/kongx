@@ -21,12 +21,14 @@ Kongx 相关wiki文档请参考：[wiki](https://gitee.com/raoxy/kongx/wikis/Kon
 - 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
 - 日志管理:平台具有完善的日志审计功能，包括：同步日志、操作日志；
 
-#### Kong网关插件列表
-- [灰度插件Canary](https://gitee.com/raoxy/kong-plugins-canary)
-- [...]
+#### Kong插件列表
+- [官网插件](https://docs.konghq.com/hub/)
+- [灰度插件canary](https://gitee.com/raoxy/kong-plugins-canary)
+- [防攻击 kong_injection](https://github.com/ror6ax/kong_injection)
 
-#### kong网关最佳实践
+#### kong最佳实践
 
 - Kong与consul自主发现服务
 - 如何应用灰度插件(canary)及使用场景介绍
+- kong插件开发实践
 - 整理中...尽情期待
