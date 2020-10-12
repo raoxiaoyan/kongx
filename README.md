@@ -1,8 +1,11 @@
 # kongx
 
+
 kongx是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
+
+Kongx 相关wiki文档请参考：[wiki](https://gitee.com/raoxy/kongx.wiki.git)
 
 平台快速部署请参见[Quick Start](https://gitee.com/raoxy/kongx/wikis/pages?sort_id=2980215&doc_id=983590)
 
