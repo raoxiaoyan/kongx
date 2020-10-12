@@ -1,36 +1,29 @@
-# kongx
+#kongx
 
 #### Description
-kong网关的可视化管理界面，更人性、更方便管理微服务的网关管理。
+kongx是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
 
-#### Software Architecture
-Software architecture description
+基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
+#### Screenshots
+![](https://gitee.com/raoxy/kongx/blob/master/docs/screen.png)
 
-#### Installation
+#### Features
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- Kong Manage:Upstream,Service,Route,Plugin,Consumer等
+- 同步Kong配置:同步不同环境间的kong配置，便于多环境同一项目配置管理； 
+- 系统管理:具有完善的权限管理系统，包括：用户管理、菜单管理、角色管理及用户组管理等功能；
+- 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
+- 日志管理:平台具有完善的日志审计功能，包括：同步日志、操作日志；
 
-#### Instructions
+#### Quick start
+[快速安装](https://gitee.com/raoxy/kongx/wikis/pages?sort_id=2979225&doc_id=983590)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### Kong网关插件列表
+- [灰度插件Canary](https://gitee.com/raoxy/kong-plugins-canary)
+- [...]
 
-#### Contribution
+#### kong网关最佳实践
 
-1.  Fork the repository
-2.  Create Feat_xxx branch
-3.  Commit your code
-4.  Create Pull Request
-
-
-#### Gitee Feature
-
-1.  You can use Readme\_XXX.md to support different languages, such as Readme\_en.md, Readme\_zh.md
-2.  Gitee blog [blog.gitee.com](https://blog.gitee.com)
-3.  Explore open source project [https://gitee.com/explore](https://gitee.com/explore)
-4.  The most valuable open source project [GVP](https://gitee.com/gvp)
-5.  The manual of Gitee [https://gitee.com/help](https://gitee.com/help)
-6.  The most popular members  [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+- Kong与consul自主发现服务
+- 如何应用灰度插件(canary)及使用场景介绍
+- 整理中...尽情期待
