@@ -4,7 +4,7 @@ kongx是网关kong的可视化界面管理平台(参考konga的部分界面布�
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
 
-平台快速部署请参见[Quick Start](https://gitee.com/raoxy/kongx/wikis/pages?sort_id=2979225&doc_id=983590)
+平台快速部署请参见[Quick Start](https://gitee.com/raoxy/kongx/wikis/pages?sort_id=2980215&doc_id=983590)
 
 系统环境默认用户：admin/123456(部署登录后，请前往'个人设置'页面，及时修改密码)
 #### Screenshots
