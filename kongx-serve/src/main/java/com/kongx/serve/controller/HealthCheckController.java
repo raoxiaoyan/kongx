@@ -23,6 +23,5 @@ public class HealthCheckController {
     @RequestMapping(value = "/health/check")
     public void check(HttpServletResponse response) {
         response.setStatus(200);
-
     }
 }

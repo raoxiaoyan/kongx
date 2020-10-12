@@ -15,5 +15,4 @@ public class SignInController {
                         @RequestParam(value = "logout", required = false) String logout) {
         return "index.html";
     }
-
 }

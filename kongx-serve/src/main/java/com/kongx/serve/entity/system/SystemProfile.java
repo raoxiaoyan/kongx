@@ -21,15 +21,13 @@ public class SystemProfile {
 
     private String env;
 
+    private String version;
+
     private String deployType;
 
     private String ab;//环境缩写
 
     private String url;
-
-    private String consul_url;
-
-    private String config_url;
 
     private String extensions = "[]";//扩展配置
 

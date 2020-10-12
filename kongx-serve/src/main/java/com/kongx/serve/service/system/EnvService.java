@@ -62,8 +62,8 @@ public class EnvService {
         values.forEach((profile) -> {
             Map map = new HashMap<>();
             map.put("label", profile.get("code"));
-            map.put("value", profile.get("profile"));
             map.put("profile", deployType + "" + profile.get("profile"));
+            map.put("value", deployType + "" + profile.get("profile"));
             map.put("profileCode", profile.get("code"));
             results.add(map);
         });

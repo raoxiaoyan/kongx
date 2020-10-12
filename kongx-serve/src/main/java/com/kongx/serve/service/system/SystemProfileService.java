@@ -1,9 +1,11 @@
 package com.kongx.serve.service.system;
 
-import com.kongx.serve.entity.system.SystemProfile;
-import com.kongx.serve.mapper.SystemProfileMapper;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
+import com.kongx.serve.entity.system.SystemProfile;
+import com.kongx.serve.mapper.SystemProfileMapper;
+import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.gateway.KongInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,13 +15,20 @@ import java.util.List;
 import java.util.Map;
 
 @Service("SystemProfileService")
-public class SystemProfileService {
+public class SystemProfileService extends AbstractService {
 
     @Autowired
     private SystemProfileMapper systemProfileMapper;
 
     @Autowired
     private EnvService envService;
+
+    @Autowired
+    private KongInfoService kongInfoService;
+
+    public Map probing(SystemProfile systemProfile) throws Exception {
+        return this.kongInfoService.info(systemProfile);
+    }
 
     protected Cache<String, SystemProfile> KONG_CLIENT_CACHE = CacheBuilder.newBuilder()
             .maximumSize(1000)
@@ -73,7 +82,7 @@ public class SystemProfileService {
     }
 
     public List<Map<String, Object>> findAllByGroup() {
-        List<Map<String,Object>> systemProfiles = new ArrayList<>();
+        List<Map<String, Object>> systemProfiles = new ArrayList<>();
         List<SystemProfile> results = this.systemProfileMapper.findAll();
         List<Map> envs = this.envService.findAllEnvs();
         for (Map env : envs) {

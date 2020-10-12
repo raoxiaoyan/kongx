@@ -37,4 +37,6 @@ public class KongInfoService extends AbstractService {
     public Map status(SystemProfile systemProfile) throws URISyntaxException {
         return kongInfoFeignService.status(uri(systemProfile, STATUS_URI));
     }
+
+
 }

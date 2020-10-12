@@ -14,15 +14,14 @@ public interface SystemProfileMapper {
     })
     List<SystemProfile> findAll();
 
-    @Insert({"insert into kongx_system_profile(profile_code,name,env,deploy_type,ab,url, consul_url,config_url,extensions,profile, creator, create_at) " +
-            "values(#{profileCode},#{name},#{env},#{deployType},#{ab}, #{url},#{consul_url},#{config_url},#{extensions}, #{profile}, #{creator}, #{create_at, jdbcType=TIMESTAMP})"})
+    @Insert({"insert into kongx_system_profile(profile_code,name,env,deploy_type,ab,url,version, extensions,profile, creator, create_at) " +
+            "values(#{profileCode},#{name},#{env},#{deployType},#{ab}, #{url},#{version},#{extensions}, #{profile}, #{creator}, #{create_at, jdbcType=TIMESTAMP})"})
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int add(SystemProfile systemProfile);
 
     @Update({"update kongx_system_profile set ",
             "profile_code=#{client.profileCode},name=#{client.name},ab=#{client.ab},url=#{client.url},",
-            "env=#{client.env},deploy_type=#{client.deployType},",
-            "consul_url=#{client.consul_url},config_url=#{client.config_url},",
+            "env=#{client.env},deploy_type=#{client.deployType},version=#{client.version},",
             "extensions=#{client.extensions},profile=#{client.profile} where id=#{client.id}"})
     int update(@Param("client") SystemProfile client);
 

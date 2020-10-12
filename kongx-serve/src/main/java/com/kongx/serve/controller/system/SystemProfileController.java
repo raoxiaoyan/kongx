@@ -1,10 +1,10 @@
 package com.kongx.serve.controller.system;
 
+import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.entity.system.SystemProfile;
-import com.kongx.common.core.entity.UserInfo;
 import com.kongx.serve.service.system.SystemProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +57,20 @@ public class SystemProfileController extends BaseController {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             this.systemProfileService.addClient(systemProfile);
+        } catch (Exception e) {
+            jsonHeaderWrapper.setErrmsg(e.getMessage());
+            jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
+        }
+        return jsonHeaderWrapper;
+    }
+
+
+    @RequestMapping(value = "/profiles/probing", method = RequestMethod.POST)
+    public JsonHeaderWrapper probing(@RequestBody SystemProfile systemProfile) {
+        JsonHeaderWrapper jsonHeaderWrapper = this.init();
+        try {
+            Map map = this.systemProfileService.probing(systemProfile);
+            jsonHeaderWrapper.setData(map.get("version"));
         } catch (Exception e) {
             jsonHeaderWrapper.setErrmsg(e.getMessage());
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
