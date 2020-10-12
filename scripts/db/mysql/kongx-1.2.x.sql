@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2020-09-29 17:58:52
+Date: 2020-10-12 12:00:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,7 +31,7 @@ CREATE TABLE `kongx_operation_log` (
   `remark` varchar(2048) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_target_hash` (`target`) USING BTREE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_operation_log
@@ -59,10 +59,10 @@ CREATE TABLE `kongx_server_config` (
 -- Records of kongx_server_config
 -- ----------------------------
 INSERT INTO `kongx_server_config` VALUES ('1', 'super_admin', 'admin', 'system', '超级管理员', '2019-12-12 16:34:07', 'admin', null, '2019-12-12 16:33:58.156');
-INSERT INTO `kongx_server_config` VALUES ('6', 'envs', '[\n    {\n        \"name\": \"开发环境\",\n        \"code\": \"dev\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"f\",\n                \"code\":\"betaf\"\n            },\n            {\n                \"profile\":\"p\",\n                \"code\":\"betap\"\n            }\n        ]\n    },\n    {\n        \"name\": \"测试环境\",\n        \"code\": \"beta\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"a\",\n                \"code\":\"betaa\"\n            },\n            {\n                \"profile\":\"b\",\n                \"code\":\"betab\"\n            },\n            {\n                \"profile\":\"c\",\n                \"code\":\"betac\"\n            },\n            {\n                \"profile\":\"d\",\n                \"code\":\"betad\"\n            }]\n    }]\n', 'system', '环境列表，默认支持', '2019-12-16 17:06:27', null, null, '2019-12-16 16:37:53.122');
-INSERT INTO `kongx_server_config` VALUES ('7', 'envs_extension', '[{\n	\"name\": \"其它环境\",\n        \"code\":\"dev\",\n        \"deployType\":\"infr\",\n	\"profiles\": [ {\n                \"profile\":\"s\",\n                \"code\":\"infrs\"\n            }]\n} ]', 'extension', '环境列表的扩展配置', '2019-12-16 16:09:21', null, null, '2019-12-16 16:08:59.814');
+INSERT INTO `kongx_server_config` VALUES ('6', 'envs', '[\n    {\n        \"name\": \"开发环境\",\n        \"code\": \"dev\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"f\",\n                \"code\":\"betaf\"\n            }\n        ]\n    },\n    {\n        \"name\": \"测试环境\",\n        \"code\": \"beta\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"a\",\n                \"code\":\"betaa\"\n            }]\n    }]\n', 'system', '环境列表，默认支持', '2019-12-16 17:06:27', null, null, '2019-12-16 16:37:53.122');
+INSERT INTO `kongx_server_config` VALUES ('7', 'envs_extension', '[]', 'extension', '环境列表的扩展配置', '2019-12-16 16:09:21', null, null, '2019-12-16 16:08:59.814');
 INSERT INTO `kongx_server_config` VALUES ('12', 'auth_server_code', 'auth_server', null, '用户中心的访问地址代码', '2020-01-14 10:53:09', null, null, null);
-INSERT INTO `kongx_server_config` VALUES ('13', 'default_domains', '[\"example.com\",\"example1.com\"]', null, '默认的网关域名列表', '2020-01-19 11:43:34', null, null, '2020-01-19 11:43:45.75');
+INSERT INTO `kongx_server_config` VALUES ('13', 'default_domains', '[\"examples.com\",\"a.examples.com\"]', null, '默认的网关域名列表', '2020-01-19 11:43:34', null, null, '2020-01-19 11:43:45.75');
 INSERT INTO `kongx_server_config` VALUES ('20', 'config_type', '[{\"label\":\"内置参数\",\"value\":\"system\"},{\"label\":\"扩展参数\",\"value\":\"extension\"}]', 'system', '系统内置参数', '2020-04-09 16:36:52', null, null, '2020-04-09 19:19:56.202');
 INSERT INTO `kongx_server_config` VALUES ('21', 'config_type_extension', '[{\"label\":\"其它参数\",\"value\":\"other\"}]', 'extension', '扩展参数类型', '2020-04-09 19:31:05', null, null, '2020-04-09 19:31:05.433');
 
@@ -130,13 +130,12 @@ CREATE TABLE `kongx_system_function` (
   `sort_order` int(11) DEFAULT '0' COMMENT '排序，小的在前面',
   PRIMARY KEY (`id`),
   KEY `nh_parentid` (`parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of kongx_system_function
 -- ----------------------------
-INSERT INTO `kongx_system_function` VALUES ('1', '-1', '', 'Dashboard', 'icon-console', '', '/console', 'y', 'menu', 'kongx', '1');
-INSERT INTO `kongx_system_function` VALUES ('2', '1', '', '首页', 'icon-dashboard', 'page/wel', 'application', 'y', 'menu', 'kongx', '1');
+INSERT INTO `kongx_system_function` VALUES ('1', '-1', '', '首页', 'icon-shouye', 'page/wel', '/home', 'y', 'menu', 'kongx', '1');
 INSERT INTO `kongx_system_function` VALUES ('4', '5', '', 'Kong Shell', 'icon-shell', 'views/gateway/shell/index', 'shell', 'y', 'menu', 'kongx', '7');
 INSERT INTO `kongx_system_function` VALUES ('5', '-1', null, 'Gateway', 'icon-gateway', '', '/gateway', 'y', 'menu', 'kongx', '4');
 INSERT INTO `kongx_system_function` VALUES ('6', '5', '', 'Upstreams', 'icon-gateway', 'views/gateway/upstream/index', 'upstream', 'y', 'menu', 'kongx', '2');
@@ -149,7 +148,7 @@ INSERT INTO `kongx_system_function` VALUES ('12', '10', null, '角色管理', 'i
 INSERT INTO `kongx_system_function` VALUES ('13', '10', null, '菜单管理', 'icon-caidanguanli', 'views/admin/menu/index', 'menu', 'y', 'menu', 'kongx', '4');
 INSERT INTO `kongx_system_function` VALUES ('14', '-1', null, '参数管理', 'icon-canshuguanli', '', '/operating', 'y', 'menu', 'kongx', '7');
 INSERT INTO `kongx_system_function` VALUES ('15', '14', null, '环境管理', 'icon-huanjingguanli', 'views/operating/env/index', 'envs', 'y', 'menu', 'kongx', '1');
-INSERT INTO `kongx_system_function` VALUES ('16', '14', null, '系统参数', 'icon-xitongcanshu', 'views/operating/developers/index', 'params', 'y', 'menu', 'kongx', '2');
+INSERT INTO `kongx_system_function` VALUES ('16', '14', null, '系统参数', 'icon-xitongcanshu', 'views/operating/params/index', 'params', 'y', 'menu', 'kongx', '2');
 INSERT INTO `kongx_system_function` VALUES ('17', '-1', null, '日志管理', 'icon-rizhiguanli1', '', '/audit', 'y', 'menu', 'kongx', '8');
 INSERT INTO `kongx_system_function` VALUES ('18', '17', '', '同步日志', 'icon-sync', 'views/operating/synclog/index', 'synclog', 'y', 'menu', 'kongx', '3');
 INSERT INTO `kongx_system_function` VALUES ('19', '17', null, '操作日志', 'icon-log', 'views/operating/log/index', 'operationlog', 'y', 'menu', 'kongx', '1');
@@ -188,6 +187,9 @@ INSERT INTO `kongx_system_function` VALUES ('51', '47', 'usergroup_view', '查�
 INSERT INTO `kongx_system_function` VALUES ('52', '47', 'usergroup_config', '用户组配置', '', '', '', 'y', 'point', 'kongx', '4');
 INSERT INTO `kongx_system_function` VALUES ('53', '5', '', 'Consumers', 'icon-consumer', 'views/gateway/consumer/index', '', 'y', 'menu', 'kongx', '6');
 INSERT INTO `kongx_system_function` VALUES ('54', '53', 'consumer_view', 'view consumers', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('55', '16', 'params_add', '新增参数', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('56', '16', 'params_update', '修改参数', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('58', '15', 'manage_env', '环境维护', '', '', '', 'y', 'point', 'kongx', '999');
 
 -- ----------------------------
 -- Table structure for kongx_system_profile
@@ -200,9 +202,8 @@ CREATE TABLE `kongx_system_profile` (
   `env` varchar(255) DEFAULT NULL COMMENT '所属环境',
   `deploy_type` varchar(255) DEFAULT NULL COMMENT '部署类型',
   `ab` varchar(255) DEFAULT NULL COMMENT '简称',
+  `version` varchar(255) DEFAULT '' COMMENT 'kong版本号',
   `url` varchar(255) DEFAULT NULL,
-  `consul_url` varchar(255) DEFAULT NULL,
-  `config_url` varchar(255) DEFAULT NULL,
   `extensions` varchar(4000) DEFAULT NULL,
   `create_at` timestamp NULL DEFAULT NULL,
   `profile` varchar(255) DEFAULT NULL,
@@ -210,14 +211,11 @@ CREATE TABLE `kongx_system_profile` (
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uh_profile_code` (`profile_code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_system_profile
 -- ----------------------------
-INSERT INTO `kongx_system_profile` VALUES ('28', 'betap', 'betap', 'dev', 'beta', 'p', 'http://p.kong.qa.daling.com:8001/', 'http://p.consul.qa.daling.com:8500', '', '[]', '2020-06-18 16:27:01', 'betap', null, null);
-INSERT INTO `kongx_system_profile` VALUES ('30', 'sdeva', 'sdeva', null, null, null, 'http://l-infra1.dev.bj6.daling.com:8001/', 'http://l-infra1.dev.bj6.daling.com:8500', '', '[]', '2020-06-18 16:27:01', 'sdeva', null, null);
-INSERT INTO `kongx_system_profile` VALUES ('31', 'betaf', 'betaf', 'dev', 'beta', 'f', 'http://l-infra1.dev.bj6.daling.com:8001/', null, null, '[]', '2020-09-11 17:26:32', 'betaf', null, null);
 
 -- ----------------------------
 -- Table structure for kongx_system_role
@@ -254,67 +252,83 @@ CREATE TABLE `kongx_system_role_function` (
   `half_checked` varchar(11) DEFAULT 'y' COMMENT '是否半选中',
   `function_id` bigint(20) DEFAULT NULL COMMENT '菜单id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=164 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统角色与菜单关系表';
 
 -- ----------------------------
 -- Records of kongx_system_role_function
 -- ----------------------------
-INSERT INTO `kongx_system_role_function` VALUES ('108', '1', 'n', '-1');
-INSERT INTO `kongx_system_role_function` VALUES ('109', '1', 'n', '1');
-INSERT INTO `kongx_system_role_function` VALUES ('110', '1', 'n', '2');
-INSERT INTO `kongx_system_role_function` VALUES ('111', '1', 'n', '4');
-INSERT INTO `kongx_system_role_function` VALUES ('112', '1', 'n', '3');
-INSERT INTO `kongx_system_role_function` VALUES ('113', '1', 'n', '5');
-INSERT INTO `kongx_system_role_function` VALUES ('114', '1', 'n', '6');
-INSERT INTO `kongx_system_role_function` VALUES ('115', '1', 'n', '20');
-INSERT INTO `kongx_system_role_function` VALUES ('116', '1', 'n', '21');
-INSERT INTO `kongx_system_role_function` VALUES ('117', '1', 'n', '22');
-INSERT INTO `kongx_system_role_function` VALUES ('118', '1', 'n', '40');
-INSERT INTO `kongx_system_role_function` VALUES ('119', '1', 'n', '7');
-INSERT INTO `kongx_system_role_function` VALUES ('120', '1', 'n', '23');
-INSERT INTO `kongx_system_role_function` VALUES ('121', '1', 'n', '24');
-INSERT INTO `kongx_system_role_function` VALUES ('122', '1', 'n', '26');
-INSERT INTO `kongx_system_role_function` VALUES ('123', '1', 'n', '25');
-INSERT INTO `kongx_system_role_function` VALUES ('124', '1', 'n', '39');
-INSERT INTO `kongx_system_role_function` VALUES ('125', '1', 'n', '8');
-INSERT INTO `kongx_system_role_function` VALUES ('126', '1', 'n', '27');
-INSERT INTO `kongx_system_role_function` VALUES ('127', '1', 'n', '28');
-INSERT INTO `kongx_system_role_function` VALUES ('128', '1', 'n', '41');
-INSERT INTO `kongx_system_role_function` VALUES ('129', '1', 'n', '9');
-INSERT INTO `kongx_system_role_function` VALUES ('130', '1', 'n', '31');
-INSERT INTO `kongx_system_role_function` VALUES ('131', '1', 'n', '42');
-INSERT INTO `kongx_system_role_function` VALUES ('132', '1', 'n', '29');
-INSERT INTO `kongx_system_role_function` VALUES ('133', '1', 'n', '30');
-INSERT INTO `kongx_system_role_function` VALUES ('134', '1', 'n', '53');
-INSERT INTO `kongx_system_role_function` VALUES ('135', '1', 'n', '54');
-INSERT INTO `kongx_system_role_function` VALUES ('136', '1', 'n', '55');
-INSERT INTO `kongx_system_role_function` VALUES ('137', '1', 'n', '10');
-INSERT INTO `kongx_system_role_function` VALUES ('138', '1', 'n', '11');
-INSERT INTO `kongx_system_role_function` VALUES ('139', '1', 'n', '32');
-INSERT INTO `kongx_system_role_function` VALUES ('140', '1', 'n', '43');
-INSERT INTO `kongx_system_role_function` VALUES ('141', '1', 'n', '12');
-INSERT INTO `kongx_system_role_function` VALUES ('142', '1', 'n', '36');
-INSERT INTO `kongx_system_role_function` VALUES ('143', '1', 'n', '37');
-INSERT INTO `kongx_system_role_function` VALUES ('144', '1', 'n', '38');
-INSERT INTO `kongx_system_role_function` VALUES ('145', '1', 'n', '45');
-INSERT INTO `kongx_system_role_function` VALUES ('146', '1', 'n', '47');
-INSERT INTO `kongx_system_role_function` VALUES ('147', '1', 'n', '51');
-INSERT INTO `kongx_system_role_function` VALUES ('148', '1', 'n', '48');
-INSERT INTO `kongx_system_role_function` VALUES ('149', '1', 'n', '49');
-INSERT INTO `kongx_system_role_function` VALUES ('150', '1', 'n', '50');
-INSERT INTO `kongx_system_role_function` VALUES ('151', '1', 'n', '52');
-INSERT INTO `kongx_system_role_function` VALUES ('152', '1', 'n', '13');
-INSERT INTO `kongx_system_role_function` VALUES ('153', '1', 'n', '33');
-INSERT INTO `kongx_system_role_function` VALUES ('154', '1', 'n', '34');
-INSERT INTO `kongx_system_role_function` VALUES ('155', '1', 'n', '35');
-INSERT INTO `kongx_system_role_function` VALUES ('156', '1', 'n', '44');
-INSERT INTO `kongx_system_role_function` VALUES ('157', '1', 'n', '14');
-INSERT INTO `kongx_system_role_function` VALUES ('158', '1', 'n', '15');
-INSERT INTO `kongx_system_role_function` VALUES ('159', '1', 'n', '16');
-INSERT INTO `kongx_system_role_function` VALUES ('160', '1', 'n', '46');
-INSERT INTO `kongx_system_role_function` VALUES ('161', '1', 'n', '17');
-INSERT INTO `kongx_system_role_function` VALUES ('162', '1', 'n', '19');
-INSERT INTO `kongx_system_role_function` VALUES ('163', '1', 'n', '18');
+INSERT INTO `kongx_system_role_function` VALUES ('277', '1', 'n', '-1');
+INSERT INTO `kongx_system_role_function` VALUES ('278', '1', 'n', '1');
+INSERT INTO `kongx_system_role_function` VALUES ('280', '1', 'n', '5');
+INSERT INTO `kongx_system_role_function` VALUES ('281', '1', 'n', '6');
+INSERT INTO `kongx_system_role_function` VALUES ('282', '1', 'n', '20');
+INSERT INTO `kongx_system_role_function` VALUES ('283', '1', 'n', '21');
+INSERT INTO `kongx_system_role_function` VALUES ('284', '1', 'n', '22');
+INSERT INTO `kongx_system_role_function` VALUES ('285', '1', 'n', '40');
+INSERT INTO `kongx_system_role_function` VALUES ('286', '1', 'n', '7');
+INSERT INTO `kongx_system_role_function` VALUES ('287', '1', 'n', '23');
+INSERT INTO `kongx_system_role_function` VALUES ('288', '1', 'n', '24');
+INSERT INTO `kongx_system_role_function` VALUES ('289', '1', 'n', '26');
+INSERT INTO `kongx_system_role_function` VALUES ('290', '1', 'n', '25');
+INSERT INTO `kongx_system_role_function` VALUES ('291', '1', 'n', '39');
+INSERT INTO `kongx_system_role_function` VALUES ('292', '1', 'n', '8');
+INSERT INTO `kongx_system_role_function` VALUES ('293', '1', 'n', '27');
+INSERT INTO `kongx_system_role_function` VALUES ('294', '1', 'n', '28');
+INSERT INTO `kongx_system_role_function` VALUES ('295', '1', 'n', '41');
+INSERT INTO `kongx_system_role_function` VALUES ('296', '1', 'n', '9');
+INSERT INTO `kongx_system_role_function` VALUES ('297', '1', 'n', '31');
+INSERT INTO `kongx_system_role_function` VALUES ('298', '1', 'n', '42');
+INSERT INTO `kongx_system_role_function` VALUES ('299', '1', 'n', '29');
+INSERT INTO `kongx_system_role_function` VALUES ('300', '1', 'n', '30');
+INSERT INTO `kongx_system_role_function` VALUES ('301', '1', 'n', '53');
+INSERT INTO `kongx_system_role_function` VALUES ('302', '1', 'n', '54');
+INSERT INTO `kongx_system_role_function` VALUES ('303', '1', 'n', '4');
+INSERT INTO `kongx_system_role_function` VALUES ('304', '1', 'n', '10');
+INSERT INTO `kongx_system_role_function` VALUES ('305', '1', 'n', '11');
+INSERT INTO `kongx_system_role_function` VALUES ('306', '1', 'n', '32');
+INSERT INTO `kongx_system_role_function` VALUES ('307', '1', 'n', '43');
+INSERT INTO `kongx_system_role_function` VALUES ('308', '1', 'n', '12');
+INSERT INTO `kongx_system_role_function` VALUES ('309', '1', 'n', '36');
+INSERT INTO `kongx_system_role_function` VALUES ('310', '1', 'n', '37');
+INSERT INTO `kongx_system_role_function` VALUES ('311', '1', 'n', '38');
+INSERT INTO `kongx_system_role_function` VALUES ('312', '1', 'n', '45');
+INSERT INTO `kongx_system_role_function` VALUES ('313', '1', 'n', '47');
+INSERT INTO `kongx_system_role_function` VALUES ('314', '1', 'n', '51');
+INSERT INTO `kongx_system_role_function` VALUES ('315', '1', 'n', '48');
+INSERT INTO `kongx_system_role_function` VALUES ('316', '1', 'n', '49');
+INSERT INTO `kongx_system_role_function` VALUES ('317', '1', 'n', '50');
+INSERT INTO `kongx_system_role_function` VALUES ('318', '1', 'n', '52');
+INSERT INTO `kongx_system_role_function` VALUES ('319', '1', 'n', '13');
+INSERT INTO `kongx_system_role_function` VALUES ('320', '1', 'n', '33');
+INSERT INTO `kongx_system_role_function` VALUES ('321', '1', 'n', '34');
+INSERT INTO `kongx_system_role_function` VALUES ('322', '1', 'n', '35');
+INSERT INTO `kongx_system_role_function` VALUES ('323', '1', 'n', '44');
+INSERT INTO `kongx_system_role_function` VALUES ('324', '1', 'n', '14');
+INSERT INTO `kongx_system_role_function` VALUES ('325', '1', 'n', '15');
+INSERT INTO `kongx_system_role_function` VALUES ('326', '1', 'n', '58');
+INSERT INTO `kongx_system_role_function` VALUES ('327', '1', 'n', '16');
+INSERT INTO `kongx_system_role_function` VALUES ('328', '1', 'n', '46');
+INSERT INTO `kongx_system_role_function` VALUES ('329', '1', 'n', '55');
+INSERT INTO `kongx_system_role_function` VALUES ('330', '1', 'n', '56');
+INSERT INTO `kongx_system_role_function` VALUES ('331', '1', 'n', '17');
+INSERT INTO `kongx_system_role_function` VALUES ('332', '1', 'n', '19');
+INSERT INTO `kongx_system_role_function` VALUES ('333', '1', 'n', '18');
+INSERT INTO `kongx_system_role_function` VALUES ('335', '2', 'n', '1');
+INSERT INTO `kongx_system_role_function` VALUES ('336', '2', 'n', '40');
+INSERT INTO `kongx_system_role_function` VALUES ('337', '2', 'n', '39');
+INSERT INTO `kongx_system_role_function` VALUES ('338', '2', 'n', '41');
+INSERT INTO `kongx_system_role_function` VALUES ('339', '2', 'n', '42');
+INSERT INTO `kongx_system_role_function` VALUES ('340', '2', 'n', '53');
+INSERT INTO `kongx_system_role_function` VALUES ('341', '2', 'n', '54');
+INSERT INTO `kongx_system_role_function` VALUES ('342', '2', 'n', '17');
+INSERT INTO `kongx_system_role_function` VALUES ('343', '2', 'n', '19');
+INSERT INTO `kongx_system_role_function` VALUES ('344', '2', 'n', '18');
+INSERT INTO `kongx_system_role_function` VALUES ('345', '2', 'y', '-1');
+INSERT INTO `kongx_system_role_function` VALUES ('346', '2', 'y', '5');
+INSERT INTO `kongx_system_role_function` VALUES ('347', '2', 'y', '6');
+INSERT INTO `kongx_system_role_function` VALUES ('348', '2', 'y', '7');
+INSERT INTO `kongx_system_role_function` VALUES ('349', '2', 'y', '8');
+INSERT INTO `kongx_system_role_function` VALUES ('350', '2', 'y', '9');
 
 -- ----------------------------
 -- Table structure for kongx_system_user_role
