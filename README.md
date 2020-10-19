@@ -5,15 +5,15 @@ kongx是网关kong的可视化界面管理平台(参考konga的部分界面布�
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
 
-Kongx 相关wiki文档请参考：[wiki](https://gitee.com/raoxy/kongx/wikis/Kongx?sort_id=2980225)
+Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx)
 
-平台快速部署请参见[Quick Start](https://gitee.com/raoxy/kongx/wikis/pages?sort_id=2980215&doc_id=983590)
+平台快速部署请参见[Quick Start](https://www.kancloud.cn/raoxiaoyan/kongx/1984323)
 
 系统环境默认用户：admin/123456(部署登录后，请前往'个人设置'页面，及时修改密码)
-#### Screenshots
-![base64str](./docs/screen.png)
+## Screenshots
+![](./docs/screen.png)
 
-#### Features
+## Features
 
 - Kong Manage:Upstream,Service,Route,Plugin,Consumer等
 - 同步Kong配置:同步不同环境间的kong配置，便于多环境同一项目配置管理； 
@@ -21,14 +21,21 @@ Kongx 相关wiki文档请参考：[wiki](https://gitee.com/raoxy/kongx/wikis/Kon
 - 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
 - 日志管理:平台具有完善的日志审计功能，包括：同步日志、操作日志；
 
-#### Kong插件列表
+## Kong插件列表
 - [官网插件](https://docs.konghq.com/hub/)
 - [灰度插件canary](https://gitee.com/raoxy/kong-plugins-canary)
 - [防攻击 kong_injection](https://github.com/ror6ax/kong_injection)
 
-#### kong最佳实践
+## kong最佳实践
 
 - Kong与consul自主发现服务
 - 如何应用灰度插件(canary)及使用场景介绍
 - kong插件开发实践
 - 整理中...尽情期待
+
+## RoadMap
+
+
+## 参考链接
+- [Kong官网](https://docs.konghq.com/1.2.x/admin-api/)
+- [OpenResty最佳实践](https://www.kancloud.cn/kancloud/openresty-best-practices/50428)
