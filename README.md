@@ -5,7 +5,7 @@ kongx是网关kong的可视化界面管理平台(参考konga的部分界面布�
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
 
-Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx)
+Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/1984321)
 
 平台快速部署请参见[Quick Start](https://www.kancloud.cn/raoxiaoyan/kongx/1984323)
 
