@@ -45,7 +45,7 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 ## kong最佳实践
 
-- Kong与consul自主发现服务
+- [Kong与consul自主发现服务](https://www.kancloud.cn/raoxiaoyan/kongx/1984357)
 - 如何应用灰度插件(canary)及使用场景介绍
 - kong插件开发实践
 - 整理中...尽情期待
