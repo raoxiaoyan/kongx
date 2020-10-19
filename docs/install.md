@@ -110,3 +110,4 @@ tail -f *.log
 打开 http://localhost:8095/kongx 
 
 登录：输入用户名admin,密码 123456 后即可登录.
+
