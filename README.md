@@ -13,6 +13,23 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 ## Screenshots
 ![](./docs/screen.png)
 
+![](./docs/services.png)
+
+![](./docs/service1.png)
+
+![](./docs/kong%20shell.png)
+
+![](./docs/user.png)
+
+![](./docs/env.png)
+
+![](./docs/params.png)
+
+![](./docs/log.png)
+
+![](./docs/synclog.png)
+
+
 ## Features
 
 - Kong Manage:Upstream,Service,Route,Plugin,Consumer等
