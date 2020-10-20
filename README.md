@@ -51,7 +51,8 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 - 整理中...尽情期待
 
 ## RoadMap
-
+1、初步计划kongx自适应kong后续所有版本
+2、增加shell界面和可视化管理界面；
 
 ## 参考链接
 - [Kong官网](https://docs.konghq.com/1.2.x/admin-api/)
