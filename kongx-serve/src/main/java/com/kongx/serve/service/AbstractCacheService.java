@@ -15,7 +15,7 @@ import java.net.URISyntaxException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
-public abstract class AbstractService<T> {
+public abstract class AbstractCacheService<T> {
 
     @Autowired
     protected ServerConfigService serverConfigService;

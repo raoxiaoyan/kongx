@@ -7,13 +7,18 @@ import com.kongx.serve.entity.gateway.upstream.Healthchecks;
 import lombok.Data;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 public class Upstream implements Comparable {
-
     private Timestamp created_at;
     private String id;
-    private String tags;
+    /**
+     * @since 1.3.x
+     */
+    private String algorithm;
+    private List<String> tags = new ArrayList<>();
     private String hash_on;
     private String hash_fallback_header;
     private String hash_on_header;
@@ -36,7 +41,7 @@ public class Upstream implements Comparable {
         return upstream.created_at.compareTo(this.created_at);
     }
 
-    public Upstream clear() {
+    public Upstream trim() {
         this.hash_fallback = set(this.hash_fallback);
         this.hash_on = set(this.hash_on);
         this.hash_fallback_header = set(this.hash_fallback_header);
@@ -44,6 +49,7 @@ public class Upstream implements Comparable {
         this.hash_on_cookie = set(this.hash_on_cookie);
         this.hash_on_cookie_path = set(this.hash_on_cookie_path);
         this.hash_fallback = set(this.hash_fallback);
+        this.algorithm = set(this.algorithm);
         if (this.healthchecks != null)
             this.healthchecks.getActive().setHttps_sni(set(this.healthchecks.getActive().getHttps_sni()));
         return this;

@@ -70,7 +70,7 @@ public class ServerConfigController extends BaseController {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             ServerConfig serverConfig = this.serverConfigService.findByKey(key);
-            jsonHeaderWrapper.setData(Jackson2Helper.parsonObject(serverConfig.getConfigValue(), new TypeReference<Object>() {
+            jsonHeaderWrapper.setData(Jackson2Helper.parsonObject(serverConfig.getConfigValue().toString(), new TypeReference<Object>() {
             }));
         } catch (Exception e) {
             jsonHeaderWrapper.setErrmsg(e.getMessage());

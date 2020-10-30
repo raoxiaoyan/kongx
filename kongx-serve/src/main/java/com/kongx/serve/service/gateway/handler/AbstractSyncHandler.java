@@ -38,11 +38,35 @@ public abstract class AbstractSyncHandler implements ISyncHandler {
     @Autowired
     protected SyncLogService syncLogService;
 
+    @Autowired
+    protected SniService sniService;
+
+    @Autowired
+    protected ConsumerService consumerService;
+
+    @Autowired
+    protected CertificateService certificateService;
+
+    @Autowired
+    protected CaCertificateService caCertificateService;
+
+
+    protected SyncLog syncLog(SyncConfig syncConfig, Object content, SystemProfile src, SystemProfile dest, String comment) {
+        SyncLog syncLog = new SyncLog();
+        syncLog.setContent(content);
+        syncLog.setSyncNo(syncConfig.getSyncNo());
+        syncLog.setSrc_client(src.getUrl());
+        syncLog.setDest_client(dest.getUrl());
+        syncLog.setComment(comment);
+        return syncLog;
+    }
 
     protected SyncLog syncLog(SyncConfig syncConfig, Object content, Service service, SystemProfile src, SystemProfile dest) {
         SyncLog syncLog = new SyncLog();
         syncLog.setContent(content);
-        syncLog.setService(service.getName());
+        if (service != null) {
+            syncLog.setService(service.getName());
+        }
         syncLog.setSyncNo(syncConfig.getSyncNo());
         syncLog.setSrc_client(src.getUrl());
         syncLog.setDest_client(dest.getUrl());

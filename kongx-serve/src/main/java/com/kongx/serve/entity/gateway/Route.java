@@ -19,7 +19,7 @@ import java.util.List;
 public class Route implements Comparable {
 
     private String id;
-    private String tags;
+    private List<String> tags = new ArrayList<>();
     private List<String> paths = new ArrayList<>();
     private String destinations;
     private List<String> protocols;

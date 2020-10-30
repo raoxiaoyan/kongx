@@ -6,7 +6,7 @@ import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Service;
 import com.kongx.serve.feign.KongFeignService;
 import com.kongx.serve.feign.ServiceFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.Target;
 import feign.codec.Decoder;
@@ -22,7 +22,7 @@ import java.util.Collections;
 @Slf4j
 @org.springframework.stereotype.Service("serviceService")
 @Import(FeignClientsConfiguration.class)
-public class ServiceService extends AbstractService<KongEntity<Service>> {
+public class ServiceService extends AbstractCacheService<KongEntity<Service>> {
     private static final String CACHE_SERVICES_KEY = "LISTS";
     private static final String SERVICE_URI = "/services";
     private static final String SERVICE_URI_ID = "/services/%s";

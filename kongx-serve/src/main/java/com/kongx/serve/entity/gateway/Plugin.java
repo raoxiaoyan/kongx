@@ -28,7 +28,7 @@ public class Plugin implements Comparable {
     private List<String> protocols;
     private boolean enabled;
     private String run_on;
-    private String consumer;
+    private EntityId consumer;
     private EntityId route;
     private String tags;
 

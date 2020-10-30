@@ -7,7 +7,7 @@ import com.kongx.serve.entity.gateway.TargetHealth;
 import com.kongx.serve.feign.KongFeignService;
 import com.kongx.serve.feign.TargetFeignService;
 import com.kongx.serve.feign.TargetHealthFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.codec.Decoder;
 import feign.codec.Encoder;
@@ -22,7 +22,7 @@ import java.net.URISyntaxException;
 @Service("targetService")
 @Import(FeignClientsConfiguration.class)
 @Slf4j
-public class TargetService extends AbstractService {
+public class TargetService extends AbstractCacheService {
     private static final String TARGET_URI = "/upstreams/%s/targets";
     private static final String TARGET_URI_HEALTH = "/upstreams/%s/health/";
     private static final String TARGET_URI_ID = "/upstreams/%s/targets/%s";

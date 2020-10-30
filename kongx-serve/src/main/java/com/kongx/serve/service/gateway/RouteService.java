@@ -7,7 +7,7 @@ import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Route;
 import com.kongx.serve.feign.KongFeignService;
 import com.kongx.serve.feign.RouteFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.Target;
 import feign.codec.Decoder;
@@ -24,7 +24,7 @@ import java.util.Collections;
 @Slf4j
 @Component("routeService")
 @Import(FeignClientsConfiguration.class)
-public class RouteService extends AbstractService<KongEntity<Route>> {
+public class RouteService extends AbstractCacheService<KongEntity<Route>> {
     private static final String CACHE_ROUTES_KEY = "LISTS";
     private static final String ROUTE_URI = "/routes";
     private static final String ROUTE_URI_ID = "/routes/%s";

@@ -1,43 +1,38 @@
 package com.kongx.serve.controller.gateway;
 
-import com.kongx.common.aop.PreAuthorize;
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
-import com.kongx.serve.entity.gateway.Upstream;
+import com.kongx.serve.entity.gateway.Sni;
 import com.kongx.serve.entity.system.OperationLog;
-import com.kongx.serve.service.gateway.UpstreamService;
+import com.kongx.serve.service.gateway.SniService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cloud.openfeign.FeignClientsConfiguration;
-import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URISyntaxException;
 
-@RestController("/upstreamController")
+@RestController("sniController")
 @RequestMapping("/kong/api/")
-@Import(FeignClientsConfiguration.class)
 @Slf4j
-public class UpstreamController extends BaseController {
-    private static final String UPSTREAM_URI = "/upstreams";
-    private static final String UPSTREAM_URI_ID = "/upstreams/{id}";
+public class SniController extends BaseController {
+    private static final String SNIS_URI = "/snis";
+    private static final String SNIS_URI_ID = "/snis/{id}";
 
     @Autowired
-    private UpstreamService upstreamService;
+    private SniService sniService;
 
     /**
-     * 查询所有upstream
+     * 查询所有sni
      *
      * @return
      */
-    @RequestMapping(value = UPSTREAM_URI, method = RequestMethod.GET)
-    @PreAuthorize("upstream_view")
+    @RequestMapping(value = SNIS_URI, method = RequestMethod.GET)
     public JsonHeaderWrapper findAll(UserInfo userInfo) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            KongEntity<Upstream> upstreamKongEntity = upstreamService.findAll(systemProfile(userInfo));
+            KongEntity<Sni> upstreamKongEntity = sniService.findAll(systemProfile(userInfo));
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -49,17 +44,17 @@ public class UpstreamController extends BaseController {
     /**
      * 新增upstream
      *
-     * @param upstream
+     * @param sni
      * @return
      * @throws URISyntaxException
      */
-    @RequestMapping(value = UPSTREAM_URI, method = RequestMethod.POST)
-    public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Upstream upstream) {
+    @RequestMapping(value = SNIS_URI, method = RequestMethod.POST)
+    public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Sni sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream results = this.upstreamService.add(systemProfile(userInfo), upstream.trim());
+            Sni results = this.sniService.add(systemProfile(userInfo), sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
+            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.SNI, sni);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -68,20 +63,20 @@ public class UpstreamController extends BaseController {
     }
 
     /**
-     * 更新upstream
+     * 更新consumer
      *
      * @param id
-     * @param upstream
+     * @param sni
      * @return
      * @throws URISyntaxException
      */
-    @RequestMapping(value = UPSTREAM_URI_ID, method = RequestMethod.POST)
-    public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Upstream upstream) {
+    @RequestMapping(value = SNIS_URI_ID, method = RequestMethod.POST)
+    public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Sni sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream results = this.upstreamService.update(systemProfile(userInfo), id, upstream.trim());
+            Sni results = this.sniService.update(systemProfile(userInfo), id, sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
+            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SNI, sni, sni.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -90,19 +85,19 @@ public class UpstreamController extends BaseController {
     }
 
     /**
-     * 删除upstream
+     * 删除sni
      *
      * @param id
      * @return
      * @throws URISyntaxException
      */
-    @RequestMapping(value = UPSTREAM_URI_ID, method = RequestMethod.DELETE)
+    @RequestMapping(value = SNIS_URI_ID, method = RequestMethod.DELETE)
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream upstream = this.upstreamService.findUpstream(systemProfile(userInfo), id);
-            KongEntity<Upstream> upstreamKongEntity = this.upstreamService.remove(systemProfile(userInfo), id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
+            Sni sni = this.sniService.findEntity(systemProfile(userInfo), id);
+            KongEntity<Sni> upstreamKongEntity = this.sniService.remove(systemProfile(userInfo), id);
+            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.SNI, sni);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -112,17 +107,17 @@ public class UpstreamController extends BaseController {
     }
 
     /**
-     * 查询单个upstream的信息
+     * 查询单个sni的信息
      *
      * @param id
      * @return
      * @throws URISyntaxException
      */
-    @RequestMapping(value = UPSTREAM_URI_ID, method = RequestMethod.GET)
-    public JsonHeaderWrapper findUpstream(UserInfo userInfo, @PathVariable String id) {
+    @RequestMapping(value = SNIS_URI_ID, method = RequestMethod.GET)
+    public JsonHeaderWrapper findSni(UserInfo userInfo, @PathVariable String id) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream results = this.upstreamService.findUpstream(systemProfile(userInfo), id);
+            Sni results = this.sniService.findEntity(systemProfile(userInfo), id);
             jsonHeaderWrapper.setData(results);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

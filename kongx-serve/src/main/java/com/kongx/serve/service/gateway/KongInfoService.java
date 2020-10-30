@@ -2,7 +2,7 @@ package com.kongx.serve.service.gateway;
 
 import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.feign.KongInfoFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.Target;
 import feign.codec.Decoder;
@@ -19,7 +19,7 @@ import java.util.Map;
 @Slf4j
 @Service("kongInfoService")
 @Import(FeignClientsConfiguration.class)
-public class KongInfoService extends AbstractService {
+public class KongInfoService extends AbstractCacheService {
 
     private static final String INFO_URI = "/";
     private static final String STATUS_URI = "/status";
