@@ -50,6 +50,10 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 - kong插件开发实践
 - 整理中...尽情期待
 
+
+## kongx与kong版本关系
+
+
 ## RoadMap
 1、初步计划kongx自适应kong后续所有版本;
 
@@ -57,6 +61,15 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 ## 技术支持
 ![](./docs/Kongx技术支持1群聊二维码.png)
+
+## 版本支持
+| 序号 | kongx版本 | Kong版本 |  说明 |
+| --- | --- | --- | --- | 
+| 1 | 1.2.x | 1.2.x |  1.2.x测试|
+| 1 | 1.3.0 | 1.2.x、1.3.x+ |  目前仅针对kong版本1.2.x、1.3.x测试通过,对1.4.x以上版本与1.3.x对比差异，原则上基础功能全部可用，(参考差异对比)[https://www.kancloud.cn/raoxiaoyan/kongx/1991178]|
+
+## Upgrade
+[更新历史](docs/upgrade.md)
 ## 参考链接
 - [Kong官网](https://docs.konghq.com/1.2.x/admin-api/)
 - [OpenResty最佳实践](https://www.kancloud.cn/kancloud/openresty-best-practices/50428)
