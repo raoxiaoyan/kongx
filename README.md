@@ -1,7 +1,7 @@
 # kongx
 
 
-kongx是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
+kongx(最新版本2.0.0)是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
 
@@ -51,7 +51,7 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 - 整理中...尽情期待
 
 
-## kongx与kong版本关系
+
 
 
 ## RoadMap
@@ -62,7 +62,7 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 ## 技术支持
 ![](./docs/Kongx技术支持1群聊二维码.png)
 
-## 版本支持
+## kongx与kong版本关系
 | 序号 | kongx版本 | Kong版本 |  说明 |
 | --- | --- | --- | --- | 
 | 1 | 1.2.x | 1.2.x |  1.2.x测试|
