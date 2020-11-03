@@ -66,7 +66,7 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 | 序号 | kongx版本 | Kong版本 |  说明 |
 | --- | --- | --- | --- | 
 | 1 | 1.2.x | 1.2.x |  1.2.x测试|
-| 1 | 1.3.0 | 1.2.x、1.3.x+ |  目前仅针对kong版本1.2.x、1.3.x测试通过,对1.4.x以上版本与1.3.x对比差异，原则上基础功能全部可用，(参考差异对比)[https://www.kancloud.cn/raoxiaoyan/kongx/1991178]|
+| 1 | 2.0.0 | 1.2.x、1.3.x、1.4.x、1.5.x、2.0.x |  目前仅针对kong版本1.2.x、1.3.x测试通过,对1.4.x以上版本与1.3.x对比差异，原则上基础功能全部可用，(参考差异对比)[https://www.kancloud.cn/raoxiaoyan/kongx/1991178]|
 
 ## Upgrade
 [更新历史](docs/upgrade.md)

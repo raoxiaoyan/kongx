@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.36.33.60
+Source Server         : 192.168.66.1
 Source Server Version : 50725
-Source Host           : localhost:3306
-Source Database       : kongx_for_java
+Source Host           : 192.168.66.1:3306
+Source Database       : kongx_serve
 
 Target Server Type    : MYSQL
 Target Server Version : 50725
 File Encoding         : 65001
 
-Date: 2020-10-12 12:00:11
+Date: 2020-11-02 14:12:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -31,7 +31,7 @@ CREATE TABLE `kongx_operation_log` (
   `remark` varchar(2048) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_target_hash` (`target`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=335 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_operation_log
@@ -53,19 +53,17 @@ CREATE TABLE `kongx_server_config` (
   `modify_at` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_config_key` (`config_key`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_server_config
 -- ----------------------------
-INSERT INTO `kongx_server_config` VALUES ('1', 'super_admin', 'admin', 'system', '超级管理员', '2019-12-12 16:34:07', 'admin', null, '2019-12-12 16:33:58.156');
+INSERT INTO `kongx_server_config` VALUES ('1', 'super_admin', 'admin,zhangshan', 'system', '超级管理员', '2019-12-12 16:34:07', 'admin', null, '2019-12-12 16:33:58.156');
 INSERT INTO `kongx_server_config` VALUES ('6', 'envs', '[\n    {\n        \"name\": \"开发环境\",\n        \"code\": \"dev\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"f\",\n                \"code\":\"betaf\"\n            }\n        ]\n    },\n    {\n        \"name\": \"测试环境\",\n        \"code\": \"beta\",\n        \"deployType\": \"beta\",\n        \"profiles\": [\n            {\n                \"profile\":\"a\",\n                \"code\":\"betaa\"\n            }]\n    }]\n', 'system', '环境列表，默认支持', '2019-12-16 17:06:27', null, null, '2019-12-16 16:37:53.122');
 INSERT INTO `kongx_server_config` VALUES ('7', 'envs_extension', '[]', 'extension', '环境列表的扩展配置', '2019-12-16 16:09:21', null, null, '2019-12-16 16:08:59.814');
-INSERT INTO `kongx_server_config` VALUES ('12', 'auth_server_code', 'auth_server', null, '用户中心的访问地址代码', '2020-01-14 10:53:09', null, null, null);
 INSERT INTO `kongx_server_config` VALUES ('13', 'default_domains', '[\"examples.com\",\"a.examples.com\"]', null, '默认的网关域名列表', '2020-01-19 11:43:34', null, null, '2020-01-19 11:43:45.75');
 INSERT INTO `kongx_server_config` VALUES ('20', 'config_type', '[{\"label\":\"内置参数\",\"value\":\"system\"},{\"label\":\"扩展参数\",\"value\":\"extension\"}]', 'system', '系统内置参数', '2020-04-09 16:36:52', null, null, '2020-04-09 19:19:56.202');
-INSERT INTO `kongx_server_config` VALUES ('21', 'config_type_extension', '[{\"label\":\"其它参数\",\"value\":\"other\"}]', 'extension', '扩展参数类型', '2020-04-09 19:31:05', null, null, '2020-04-09 19:31:05.433');
-
+INSERT INTO `kongx_server_config` VALUES ('21', 'config_type_extension', '[]', 'extension', '扩展参数类型', '2020-04-09 19:31:05', null, null, '2020-04-09 19:31:05.433');
 -- ----------------------------
 -- Table structure for kongx_sync_config
 -- ----------------------------
@@ -84,7 +82,7 @@ CREATE TABLE `kongx_sync_config` (
   `src_client` json DEFAULT NULL,
   `log_type` int(11) DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_sync_config
@@ -106,7 +104,7 @@ CREATE TABLE `kongx_sync_log` (
   `content` json DEFAULT NULL,
   `comment` varchar(2048) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of kongx_sync_log
@@ -130,13 +128,13 @@ CREATE TABLE `kongx_system_function` (
   `sort_order` int(11) DEFAULT '0' COMMENT '排序，小的在前面',
   PRIMARY KEY (`id`),
   KEY `nh_parentid` (`parent_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of kongx_system_function
 -- ----------------------------
 INSERT INTO `kongx_system_function` VALUES ('1', '-1', '', '首页', 'icon-shouye', 'page/wel', '/home', 'y', 'menu', 'kongx', '1');
-INSERT INTO `kongx_system_function` VALUES ('4', '5', '', 'Kong Shell', 'icon-shell', 'views/gateway/shell/index', 'shell', 'y', 'menu', 'kongx', '7');
+INSERT INTO `kongx_system_function` VALUES ('4', '5', '', 'Kong Shell', 'icon-shell', 'views/gateway/shell/index', 'shell', 'y', 'menu', 'kongx', '9');
 INSERT INTO `kongx_system_function` VALUES ('5', '-1', null, 'Gateway', 'icon-gateway', '', '/gateway', 'y', 'menu', 'kongx', '4');
 INSERT INTO `kongx_system_function` VALUES ('6', '5', '', 'Upstreams', 'icon-gateway', 'views/gateway/upstream/index', 'upstream', 'y', 'menu', 'kongx', '2');
 INSERT INTO `kongx_system_function` VALUES ('7', '5', null, 'Services', 'icon-services', 'views/gateway/service/index', 'service', 'y', 'menu', 'kongx', '3');
@@ -186,10 +184,19 @@ INSERT INTO `kongx_system_function` VALUES ('50', '47', 'usergroup_delete', '删
 INSERT INTO `kongx_system_function` VALUES ('51', '47', 'usergroup_view', '查看用户组', '', '', '', 'y', 'point', 'kongx', '1');
 INSERT INTO `kongx_system_function` VALUES ('52', '47', 'usergroup_config', '用户组配置', '', '', '', 'y', 'point', 'kongx', '4');
 INSERT INTO `kongx_system_function` VALUES ('53', '5', '', 'Consumers', 'icon-consumer', 'views/gateway/consumer/index', '', 'y', 'menu', 'kongx', '6');
-INSERT INTO `kongx_system_function` VALUES ('54', '53', 'consumer_view', 'view consumers', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('54', '53', 'consumer_view', '查看consumer', '', '', '', 'y', 'point', 'kongx', '999');
 INSERT INTO `kongx_system_function` VALUES ('55', '16', 'params_add', '新增参数', '', '', '', 'y', 'point', 'kongx', '999');
 INSERT INTO `kongx_system_function` VALUES ('56', '16', 'params_update', '修改参数', '', '', '', 'y', 'point', 'kongx', '999');
 INSERT INTO `kongx_system_function` VALUES ('58', '15', 'manage_env', '环境维护', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('59', '5', '', 'Snis', 'icon-sni', 'views/gateway/sni/index', 'snis', 'y', 'menu', 'kongx', '7');
+INSERT INTO `kongx_system_function` VALUES ('60', '5', '', 'Certificates', 'icon-certificate', 'views/gateway/certificate/index', 'certificate', 'y', 'menu', 'kongx', '8');
+INSERT INTO `kongx_system_function` VALUES ('61', '53', 'consumer_add', '新增consumer', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('62', '53', 'consumer_update', '更新consumer', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('63', '53', 'consumer_delete', '删除consumer', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('64', '60', 'certificate_view', '查看certificate', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('65', '60', 'certificate_add', '新增certificate', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('66', '60', 'certificate_update', '修改certificate', '', '', '', 'y', 'point', 'kongx', '999');
+INSERT INTO `kongx_system_function` VALUES ('67', '60', 'certificate_delete', '删除certificate', '', '', '', 'y', 'point', 'kongx', '999');
 
 -- ----------------------------
 -- Table structure for kongx_system_profile
@@ -211,11 +218,7 @@ CREATE TABLE `kongx_system_profile` (
   `remark` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uh_profile_code` (`profile_code`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8;
-
--- ----------------------------
--- Records of kongx_system_profile
--- ----------------------------
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Table structure for kongx_system_role
@@ -252,7 +255,7 @@ CREATE TABLE `kongx_system_role_function` (
   `half_checked` varchar(11) DEFAULT 'y' COMMENT '是否半选中',
   `function_id` bigint(20) DEFAULT NULL COMMENT '菜单id',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=351 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统角色与菜单关系表';
+) ENGINE=InnoDB AUTO_INCREMENT=854 DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC COMMENT='系统角色与菜单关系表';
 
 -- ----------------------------
 -- Table structure for kongx_system_user_role
@@ -283,7 +286,7 @@ CREATE TABLE `kongx_user_group` (
   `modify_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '修改时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COMMENT='用户组';
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COMMENT='用户组';
 
 -- ----------------------------
 -- Records of kongx_user_group
@@ -341,23 +344,3 @@ CREATE TABLE `kongx_user_info` (
 -- Records of kongx_user_info
 -- ----------------------------
 INSERT INTO `kongx_user_info` VALUES ('admin', 'admin', '', '', '60029c3f5fdb5f1291362f52f7251702507ebc5b', 'activate', 'admin', '2020-09-10 18:21:38');
-
-
--- ----------------------------
--- Records of kongx_system_role_function super_admin的权限信息
--- ----------------------------
-insert into kongx_system_role_function(role_id,half_checked,function_id)
-select '1' role_id,'n' half_checked,'-1' as function_id
-union all
-select '1' role_id,'n' half_checked,id as function_id from kongx_system_function;
--- ----------------------------
--- Records of kongx_system_role_function 初始化domestic_consumer权限信息
--- ----------------------------
-insert into kongx_system_role_function(role_id,half_checked,function_id)
-select '2' role_id,'y' half_checked,'-1' as function_id
-union
-select '2' role_id,'y' half_checked,id as function_id from kongx_system_function where name in ('Gateway','Upstreams','Services','Routes','Plugins','Kong Shell','Consumers','Certificates','日志管理')
-union
-select '2' role_id,'n' half_checked,id as function_id from kongx_system_function where code in ('service_view','upstream_view','route_view','plugin_view','consumer_view','certificate_view')
-union
-select '2' role_id,'n' half_checked,id as function_id from kongx_system_function where name='操作日志'
