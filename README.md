@@ -17,23 +17,18 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 ![](./docs/service1.png)
 
+![](./docs/service2.png)
+
+![](./docs/consumers.png)
+
+![](./docs/certificate.png)
+
 ![](./docs/kong%20shell.png)
-
-![](./docs/user.png)
-
-![](./docs/env.png)
-
-![](./docs/params.png)
-
-![](./docs/log.png)
-
-![](./docs/synclog.png)
-
 
 ## Features
 
-- Kong Manage:Upstream,Service,Route,Plugin,Consumer等
-- 同步Kong配置:同步不同环境间的kong配置，便于多环境同一项目配置管理； 
+- Kong Manage:Upstream,Service,Route,Plugin,Consumer,Certificates及Ca Certificates等
+- 同步Kong配置:不同环境间的kong配置进行同步，便于多环境配置管理； 
 - 系统管理:具有完善的权限管理系统，包括：用户管理、菜单管理、角色管理及用户组管理等功能；
 - 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
 - 日志管理:平台具有完善的日志审计功能，包括：同步日志、操作日志；
@@ -55,12 +50,24 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 
 ## RoadMap
-1、初步计划kongx自适应kong后续所有版本;
+1、初步计划kongx自适应kong后续所有版本;(已完成自动适配至2.1.x版本)
 
 2、增加shell界面和可视化管理界面；
 
 ## 技术支持
-![](./docs/Kongx技术支持1群聊二维码.png)
+<table>
+  <thead>
+    <th>Kongx技术支持1群<br />群号：980245072(未满)</th>
+    <th>技术合作<br />请扫描微信二维码</th>
+  </thead>
+  <tbody>
+    <tr>
+      <td><img src="https://raw.githubusercontent.com/raoxiaoyan/kongx/master/docs/kongx_tech1.png" alt="tech-support-qq-1"></td>
+      <td><img src="https://raw.githubusercontent.com/raoxiaoyan/kongx/master/docs/cooperate.jpg" alt="cooperate" width="230px;"></td>
+    </tr>
+  </tbody>
+</table>
+
 
 ## kongx与kong版本关系
 | 序号 | kongx版本 | Kong版本 |  说明 |
