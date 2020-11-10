@@ -23,7 +23,7 @@ public class KongxBanner implements Banner {
 
     @Override
     public void printBanner(Environment environment, Class<?> sourceClass, PrintStream printStream) {
-        this.print(" :: Support kong :: ", "(v1.2.1)", printStream);
+        this.print(" :: Support kong :: ", "(v2.0.0)", printStream);
         printStream.println(BANNER);
         String copyright = " :: Copyright@2020 :: ";
         String version = SpringBootVersion.getVersion();
