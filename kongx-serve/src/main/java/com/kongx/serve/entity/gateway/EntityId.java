@@ -1,6 +1,6 @@
 /**
-  * Copyright 2019 bejson.com 
-  */
+ * Copyright 2019 bejson.com
+ */
 package com.kongx.serve.entity.gateway;
 
 /**
@@ -12,11 +12,12 @@ package com.kongx.serve.entity.gateway;
 public class EntityId {
 
     private String id;
-    public void setId(String id) {
-         this.id = id;
-     }
-     public String getId() {
-         return id;
-     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
 }

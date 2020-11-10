@@ -2,11 +2,11 @@ package com.kongx.serve.service.gateway;
 
 import com.kongx.common.cache.CacheResults;
 import com.kongx.serve.entity.gateway.KongEntity;
-import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.entity.gateway.Upstream;
+import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.feign.KongFeignService;
 import com.kongx.serve.feign.UpstreamFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.RequestInterceptor;
 import feign.Target;
@@ -24,7 +24,7 @@ import java.util.Collections;
 @Service("upstreamService")
 @Import(FeignClientsConfiguration.class)
 @Slf4j
-public class UpstreamService extends AbstractService<KongEntity<Upstream>> {
+public class UpstreamService extends AbstractCacheService<KongEntity<Upstream>> {
     private static final String UPSTREAM_URI = "/upstreams";
     private static final String UPSTREAM_URI_ID = "/upstreams/%s";
 

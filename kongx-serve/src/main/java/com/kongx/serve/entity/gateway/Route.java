@@ -19,7 +19,7 @@ import java.util.List;
 public class Route implements Comparable {
 
     private String id;
-    private String tags;
+    private List<String> tags = new ArrayList<>();
     private List<String> paths = new ArrayList<>();
     private String destinations;
     private List<String> protocols;
@@ -31,6 +31,7 @@ public class Route implements Comparable {
     private int regex_priority;
     private boolean strip_path;
     private String sources;
+    private String path_handling;
     private Timestamp updated_at;
     private int https_redirect_status_code = 426;
     private EntityId service;

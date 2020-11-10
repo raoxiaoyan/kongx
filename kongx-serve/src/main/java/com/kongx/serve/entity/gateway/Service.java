@@ -15,7 +15,7 @@ import java.util.List;
  * @website http://www.bejson.com/java2pojo/
  */
 @Data
-public class Service  implements Comparable {
+public class Service implements Comparable {
 
     private String host;
     private Timestamp created_at;
@@ -29,6 +29,10 @@ public class Service  implements Comparable {
     private long updated_at;
     private int retries;
     private int write_timeout;
+    /**
+     * @since 1.3.x
+     */
+    private EntityId client_certificate;
     private List<String> tags;
 
     @Override
@@ -44,8 +48,11 @@ public class Service  implements Comparable {
     }
 
 
-    public Service clear() {
+    public Service trim() {
         this.protocol = set(this.protocol);
+        if (this.client_certificate != null && this.client_certificate.getId() == null) {
+            this.client_certificate = null;
+        }
         return this;
     }
 

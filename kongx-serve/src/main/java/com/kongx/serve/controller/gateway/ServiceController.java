@@ -54,7 +54,6 @@ public class ServiceController extends BaseController {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             SystemProfile activeClient = this.systemProfile(userInfo);
-            Service service = this.kongFeignService.find(this.systemProfile(userInfo), serviceId);
             KongEntity<PluginVO> pluginVOKongEntity = pluginService.findAllPluginByService(systemProfile.IS_NULL() ? activeClient : systemProfile, serviceId);
             jsonHeaderWrapper.setData(pluginVOKongEntity.getData());
         } catch (Exception e) {
@@ -75,7 +74,7 @@ public class ServiceController extends BaseController {
     public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Service service) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Service results = this.kongFeignService.add(systemProfile(userInfo), service);
+            Service results = this.kongFeignService.add(systemProfile(userInfo), service.trim());
             jsonHeaderWrapper.setData(results);
             this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.SERVICE, results, results.getName());
         } catch (Exception e) {
@@ -97,7 +96,7 @@ public class ServiceController extends BaseController {
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Service service) throws URISyntaxException {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Service results = this.kongFeignService.update(systemProfile(userInfo), id, service);
+            Service results = this.kongFeignService.update(systemProfile(userInfo), id, service.trim());
             jsonHeaderWrapper.setData(results);
             this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SERVICE, results, results.getName());
         } catch (Exception e) {

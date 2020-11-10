@@ -4,7 +4,7 @@ import com.kongx.serve.entity.gateway.*;
 import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.feign.PluginFeignService;
 import com.kongx.serve.feign.PluginVOFeignService;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import feign.Feign;
 import feign.Target;
 import feign.codec.Decoder;
@@ -23,10 +23,11 @@ import java.util.Map;
 @Slf4j
 @Component("pluginService")
 @Import(FeignClientsConfiguration.class)
-public class PluginService extends AbstractService {
+public class PluginService extends AbstractCacheService {
     private static final String PLUGIN_URI = "/plugins";
     private static final String PLUGIN_ROUTE_URI = "/routes/%s/plugins";
     private static final String PLUGIN_SERVICE_URI = "/services/%s/plugins";
+    private static final String PLUGIN_CONSUMER_URI = "/consumers/%s/plugins";
     private static final String PLUGIN_URI_ID = "/plugins/%s";
     private static final String PLUGIN_URI_SCHEMA_NAME = "/plugins/schema/%s";
 
@@ -101,6 +102,12 @@ public class PluginService extends AbstractService {
         return routeKongEntity;
     }
 
+    public KongEntity<PluginVO> findAllByConsumer(SystemProfile systemProfile, String serviceId) throws URISyntaxException {
+        KongEntity<PluginVO> routeKongEntity = this.pluginVOFeignService.findAll(uri(systemProfile, String.format(PLUGIN_CONSUMER_URI, serviceId)));
+        Collections.sort(routeKongEntity.getData());
+        return routeKongEntity;
+    }
+
     public Plugin add(SystemProfile systemProfile, Plugin plugin) throws URISyntaxException {
         return this.kongFeignService.add(uri(systemProfile, PLUGIN_URI), plugin);
     }
@@ -111,6 +118,10 @@ public class PluginService extends AbstractService {
 
     public Plugin addByService(SystemProfile systemProfile, String serviceId, Plugin plugin) throws URISyntaxException {
         return this.kongFeignService.add(uri(systemProfile, String.format(PLUGIN_SERVICE_URI, serviceId)), plugin);
+    }
+
+    public Plugin addByConsumer(SystemProfile systemProfile, String consumerId, Plugin plugin) throws URISyntaxException {
+        return this.kongFeignService.add(uri(systemProfile, String.format(PLUGIN_CONSUMER_URI, consumerId)), plugin);
     }
 
     public Plugin update(SystemProfile systemProfile, String id, Plugin plugin) throws URISyntaxException {

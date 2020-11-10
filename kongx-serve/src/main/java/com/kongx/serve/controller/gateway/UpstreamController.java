@@ -54,11 +54,10 @@ public class UpstreamController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = UPSTREAM_URI, method = RequestMethod.POST)
-    @PreAuthorize("upstream_add")
     public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Upstream upstream) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream results = this.upstreamService.add(systemProfile(userInfo), upstream.clear());
+            Upstream results = this.upstreamService.add(systemProfile(userInfo), upstream.trim());
             jsonHeaderWrapper.setData(results);
             this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
         } catch (Exception e) {
@@ -80,7 +79,7 @@ public class UpstreamController extends BaseController {
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Upstream upstream) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream results = this.upstreamService.update(systemProfile(userInfo), id, upstream.clear());
+            Upstream results = this.upstreamService.update(systemProfile(userInfo), id, upstream.trim());
             jsonHeaderWrapper.setData(results);
             this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
         } catch (Exception e) {

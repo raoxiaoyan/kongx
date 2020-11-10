@@ -4,7 +4,7 @@ import com.kongx.common.cache.CacheResults;
 import com.kongx.serve.entity.system.ServerConfig;
 import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.mapper.ServerConfigMapper;
-import com.kongx.serve.service.AbstractService;
+import com.kongx.serve.service.AbstractCacheService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +15,7 @@ import java.util.List;
 
 @Slf4j
 @Service("ServerConfigService")
-public class ServerConfigService extends AbstractService<List<ServerConfig>> {
+public class ServerConfigService extends AbstractCacheService<List<ServerConfig>> {
     private static final String SERVERS_CONFIGS_KEY = "LISTS";
     @Autowired
     private ServerConfigMapper serverConfigMapper;
@@ -48,7 +48,7 @@ public class ServerConfigService extends AbstractService<List<ServerConfig>> {
 
     public URI findUriByCode(SystemProfile systemProfile, String code) throws Exception {
         ServerConfig serverConfig = serverConfigService.findByKey(code);
-        SystemProfile.System system = systemProfile.to(serverConfig.getConfigValue());
+        SystemProfile.System system = systemProfile.to(serverConfig.getConfigValue().toString());
         if (system == null) throw new Exception("Please set Hot config url");
         String url = system.getUrl();
         if (url.endsWith("/")) {
