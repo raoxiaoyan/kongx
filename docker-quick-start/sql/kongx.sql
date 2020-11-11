@@ -14,9 +14,14 @@ Date: 2020-11-02 14:12:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+# Create Database
+# ------------------------------------------------------------
+
 CREATE DATABASE IF NOT EXISTS kongx_serve DEFAULT CHARACTER SET = utf8mb4;
 
 Use kongx_serve;
+
 -- ----------------------------
 -- Table structure for kongx_operation_log
 -- ----------------------------
@@ -346,7 +351,6 @@ CREATE TABLE `kongx_user_info` (
 -- Records of kongx_user_info
 -- ----------------------------
 INSERT INTO `kongx_user_info` VALUES ('admin', 'admin', '', '', '60029c3f5fdb5f1291362f52f7251702507ebc5b', 'activate', 'admin', '2020-09-10 18:21:38');
-
 
 -- ----------------------------
 -- Records of kongx_system_role_function super_admin的权限信息

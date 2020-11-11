@@ -9,6 +9,8 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 平台快速部署请参见[Quick Start](https://www.kancloud.cn/raoxiaoyan/kongx/1984323)
 
+Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/readme.md)
+
 系统环境默认用户：admin/123456(部署登录后，请前往'个人设置'页面，及时修改密码)
 ## Screenshots
 ![](./docs/screen.png)
