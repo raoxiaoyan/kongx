@@ -1,0 +1,37 @@
+version: '2'
+services:
+  kongx_serve:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: kongx_serve
+    depends_on:
+      - kongx_db
+    ports:
+      - "8095:8095"
+    links:
+      - kongx_db
+  kongx_db:
+    image: mysql:5.7
+    command: [
+      '--default-time-zone=+8:00'
+    ]
+    container_name: kongx_db
+    environment:
+      TZ: Asia/Shanghai
+      MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
+    ports:
+      - "13306:3306"
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+      - /var/lib/mysql
+      - ./conf:/etc/mysql
+      - /etc/localtime:/etc/localtime
+#    volumes_from:
+#      - kongx_db_data
+#  kongx_db_data:
+#    image: alpine:latest
+#    container_name: kongx_db_data
+#    volumes:
+#      - /var/lib/mysql
+

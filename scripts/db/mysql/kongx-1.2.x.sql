@@ -15,6 +15,9 @@ Date: 2020-10-12 12:00:11
 
 SET FOREIGN_KEY_CHECKS=0;
 
+CREATE DATABASE IF NOT EXISTS kongx_serve DEFAULT CHARACTER SET = utf8mb4;
+
+Use kongx_serve;
 -- ----------------------------
 -- Table structure for kongx_operation_log
 -- ----------------------------

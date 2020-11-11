@@ -1,7 +1,7 @@
 @echo off
 
 rem kongx serve db info
-set kongx_serve_db_url="jdbc:mysql://localhost:3306/kongx_serve?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true"
+set kongx_serve_db_url="jdbc:mysql://kongx_db:3306/kongx_serve?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true"
 set kongx_serve_db_username="root"
 set kongx_serve_db_password=""
 
