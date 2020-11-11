@@ -1,8 +1,10 @@
 #Docker quick start
 ## 1. docker环境准备
-   docker及docker-compose的安装，请参考：
-   https://www.runoob.com/docker/centos-docker-install.html
-   https://www.runoob.com/docker/docker-compose.html
+docker及docker-compose的安装，请参考：
+
+https://www.runoob.com/docker/centos-docker-install.html
+
+https://www.runoob.com/docker/docker-compose.html
 ## 2. 安装准备
 将docker-quick-start 上传到linux目录下（如：/opt/kongx）
 ## 3. 下载安装包
