@@ -1,4 +1,4 @@
-package com.kongx.common.aop;
+package com.kongx.serve.annotation;
 
 import java.lang.annotation.*;
 
@@ -6,6 +6,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
-public @interface PreAuthorize {
+public @interface Authorize {
     String value();
 }

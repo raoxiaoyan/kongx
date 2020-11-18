@@ -8,11 +8,11 @@ import java.util.Map;
 
 @Mapper
 public interface LogMapper {
-    @Insert({"insert into kongx_operation_log(userId,operation_type,content,target,creator,create_at,remark,profile) ",
+    @Insert({"insert into kongx_operation_log(userId,operation_type,content,target,creator,create_at,remark,profile,ip) ",
             "values(#{log.userId}, #{log.operation},",
             "#{log.content,typeHandler=com.kongx.common.handler.JSONHandler},#{log.target},",
             "#{log.creator}, #{log.create_at, jdbcType=TIMESTAMP},",
-            "#{log.remark},#{log.profile})"})
+            "#{log.remark},#{log.profile},#{log.ip})"})
     int add(@Param("log") OperationLog log);
 
     @Select("SELECT t.* FROM kongx_operation_log t where TO_DAYS(NOW())-#{days}<TO_DAYS(t.create_at) order by t.create_at desc")

@@ -2,6 +2,7 @@ package com.kongx.serve.controller.system;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.entity.system.SystemProfile;
@@ -79,11 +80,11 @@ public class SystemProfileController extends BaseController {
     }
 
     @RequestMapping(value = "/profiles/{clientId}", method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.SERVER_CONFIG, content = "#systemProfile.profile")
     public JsonHeaderWrapper update(@PathVariable int clientId, @RequestBody SystemProfile systemProfile, UserInfo userInfo) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             this.systemProfileService.updateClient(systemProfile);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SYSTEM_PROFILE, systemProfile, systemProfile.getProfile());
         } catch (Exception e) {
             jsonHeaderWrapper.setErrmsg(e.getMessage());
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

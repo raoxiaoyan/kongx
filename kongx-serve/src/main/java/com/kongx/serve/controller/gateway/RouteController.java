@@ -2,7 +2,7 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
-import com.kongx.common.utils.Jackson2Helper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Route;
@@ -70,6 +70,9 @@ public class RouteController extends BaseController {
         return jsonHeaderWrapper;
     }
 
+    @Autowired
+    private ServiceService serviceService;
+
     /**
      * 批量更新路由Hosts
      *
@@ -90,10 +93,6 @@ public class RouteController extends BaseController {
                 datum.setHosts(routeParams.getHosts());
                 this.kongFeignService.update(systemProfile, datum.getId(), datum);
             }
-            if (!routeKongEntity.getData().isEmpty()) {
-                this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.ROUTE, routeParams,
-                        routeKongEntity.getData().get(0).getName() + " ...等路由的主机名为：" + Jackson2Helper.toJsonString(routeParams.getHosts()));
-            }
             jsonHeaderWrapper.setErrmsg(routeNames.toString());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -110,33 +109,17 @@ public class RouteController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = ROUTE_SERVICE_URI_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.ROUTE, content = "#route")
     public JsonHeaderWrapper add(UserInfo userInfo, @PathVariable String serviceId, @RequestBody Route route) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             KongEntity<Route> routeKongEntity = this.kongFeignService.add(systemProfile(userInfo), serviceId, route.clear());
             jsonHeaderWrapper.setData(routeKongEntity.getData());
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.ROUTE, route, remark(userInfo, route));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
         }
         return jsonHeaderWrapper;
-    }
-
-    @Autowired
-    private ServiceService serviceService;
-
-    private String remark(UserInfo userInfo, Route route) {
-        String remark = "";
-        try {
-            if (route.getService() != null) {
-                Service service = this.serviceService.find(systemProfile(userInfo), route.getService().getId());
-                remark = String.format("'%s' 从属于服务 '%s'", route.getName(), service.getName());
-            }
-        } catch (URISyntaxException e) {
-            return "";
-        }
-        return remark;
     }
 
     /**
@@ -148,12 +131,12 @@ public class RouteController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = ROUTE_URI_ID_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.ROUTE, content = "#route")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Route route) throws URISyntaxException {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Route results = this.kongFeignService.update(systemProfile(userInfo), id, route.clear());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.ROUTE, route, remark(userInfo, route));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -169,13 +152,12 @@ public class RouteController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = ROUTE_URI_ID_PATH, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.ROUTE, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws URISyntaxException {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Route route = this.kongFeignService.find(systemProfile(userInfo), id);
             KongEntity<Route> routeKongEntity = this.kongFeignService.remove(systemProfile(userInfo), id);
             jsonHeaderWrapper.setData(routeKongEntity.getData());
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.ROUTE, route, remark(userInfo, route));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

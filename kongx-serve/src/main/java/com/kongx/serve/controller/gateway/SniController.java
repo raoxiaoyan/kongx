@@ -2,6 +2,7 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Sni;
@@ -49,12 +50,12 @@ public class SniController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SNIS_URI, method = RequestMethod.POST)
-    public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Sni sni) {
+    @KongLog(target = OperationLog.OperationTarget.SNI, content = "#sni")
+    public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Sni sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Sni results = this.sniService.add(systemProfile(userInfo), sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.SNI, sni);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -71,12 +72,12 @@ public class SniController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SNIS_URI_ID, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.SNI, content = "#sni")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Sni sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Sni results = this.sniService.update(systemProfile(userInfo), id, sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SNI, sni, sni.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -92,12 +93,11 @@ public class SniController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SNIS_URI_ID, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.SNI, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Sni sni = this.sniService.findEntity(systemProfile(userInfo), id);
             KongEntity<Sni> upstreamKongEntity = this.sniService.remove(systemProfile(userInfo), id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.SNI, sni);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

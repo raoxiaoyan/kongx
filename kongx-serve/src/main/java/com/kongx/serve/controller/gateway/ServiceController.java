@@ -2,6 +2,7 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.PluginVO;
@@ -71,12 +72,12 @@ public class ServiceController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SERVICE_URI, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.SERVICE, content = "#service")
     public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Service service) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Service results = this.kongFeignService.add(systemProfile(userInfo), service.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.SERVICE, results, results.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -93,12 +94,12 @@ public class ServiceController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SERVICE_URI_ID_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.SERVICE, content = "#service")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Service service) throws URISyntaxException {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Service results = this.kongFeignService.update(systemProfile(userInfo), id, service.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SERVICE, results, results.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -114,13 +115,12 @@ public class ServiceController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = SERVICE_URI_ID_PATH, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.SERVICE, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Service service = this.kongFeignService.find(systemProfile(userInfo), id);
             KongEntity<Service> upstreamKongEntity = this.kongFeignService.remove(systemProfile(userInfo), id);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.SERVICE, service, service.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

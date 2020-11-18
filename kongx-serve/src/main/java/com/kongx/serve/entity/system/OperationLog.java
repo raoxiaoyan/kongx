@@ -23,6 +23,7 @@ public class OperationLog {
     private Object content;
 
     private String remark;
+    private String ip;
 
 
     public static enum OperationType {
@@ -31,14 +32,7 @@ public class OperationLog {
         OPERATION_SYNC("sync", "同步"),
         OPERATION_ADD("add", "新增"),
         OPERATION_UPDATE("update", "修改"),
-        OPERATION_DELETE("delete", "删除"),
-        OPERATION_SUBSCRIBE("subscribe", "订阅"),
-        JOB_STARTUP("job_startup", "启动"),
-        JOB_PAUSE("job_pause", "暂停"),
-        JOB_DELETE("job_delete", "删除"),
-        DEMOTE_CONFIG("demote_config", "执行降级"),
-        ROLLBACK_CONFIG("rollback_config", "降级回滚"),
-        ARTHAS_ATTACH("arthas_attach", "Arthas调试"),
+        OPERATION_DELETE("remove", "删除"),
         OPERATION_DEFAULT("none", "");
         private String type;
         private String remark;
@@ -51,6 +45,15 @@ public class OperationLog {
         public static OperationType to(String type) {
             for (OperationType value : OperationType.values()) {
                 if (value.type.equals(type)) {
+                    return value;
+                }
+            }
+            return OPERATION_DEFAULT;
+        }
+
+        public static OperationType mapping(String method) {
+            for (OperationType value : OperationType.values()) {
+                if (method.startsWith(value.getType())) {
                     return value;
                 }
             }
@@ -83,6 +86,7 @@ public class OperationLog {
         UPSTREAM("upstream", "上游服务"),
         SNI("sni", "sni"),
         CONSUMERS("consumers", "消费者"),
+        CONSUMERS_CERTIFICATE("consumers_certificate", "消费者认证"),
         CaCertificate("ca_certificate", "CA认证"),
         Certificate("certificate", "认证"),
         TARGETS("targets", "上游代理"),
@@ -92,19 +96,8 @@ public class OperationLog {
         SYSTEM_FUNCTION("system_function", "系统功能菜单"),
         SYNC_SERVICE("sync_service", "网关服务"),
         USER_INFO("user_info", "用户信息"),
-        TEMPLATE_TYPE("template_type", "模板类型"),
-        SERVER_CONFIG("server_config", "系统参数"),
         SYSTEM_PROFILE("system_profile", "系统环境"),
-        DEMOTE_APP_PARAMS("demote_app_params", "降级参数"),
-        SERVICE_PROGRESS("service_progress", "服务进程"),
-        MONITOR_JOB("monitor_job", "作业"),
-        MONITOR_JOB_TASK("monitor_job_task", "作业任务"),
-        DING_TALK_ROBOT("ding_talk_robot", "钉钉机器人"),
-        ALERT_RULE("alert_rule", "告警规则"),
-        ALERT_RECORD("alert_record", "告警记录"),
-        ALERT_TEMPLATE("alert_template", "告警模板"),
-        PROJECT("project", "项目管理"),
-        SYNC_APP_PARAMS("sync_app_params", "热配参数"),
+        SERVER_CONFIG("service_config", "系统配置"),
         LOGGER_LEVEL("logger_level", "日志级别");
         private String type;
         private String target;

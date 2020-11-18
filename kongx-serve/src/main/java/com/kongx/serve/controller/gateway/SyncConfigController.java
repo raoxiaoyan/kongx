@@ -1,9 +1,9 @@
 package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.PaginationSupport;
+import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
 import com.kongx.serve.controller.BaseController;
-import com.kongx.common.core.entity.UserInfo;
 import com.kongx.serve.entity.gateway.Service;
 import com.kongx.serve.entity.gateway.SyncConfig;
 import com.kongx.serve.entity.gateway.SyncEntity;
@@ -15,6 +15,7 @@ import com.kongx.serve.service.system.SyncConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController("/SyncConfigController")
@@ -27,12 +28,12 @@ public class SyncConfigController extends BaseController {
     private SyncLogService syncLogService;
 
     @RequestMapping(value = "/configs", method = RequestMethod.POST)
-    public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody SyncConfig syncConfig) {
+    public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody SyncConfig syncConfig, HttpServletRequest request) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             syncConfig.setCreator(userInfo.getName());
             jsonHeaderWrapper.setData(this.syncConfigService.addSyncConfig(userInfo, syncConfig));
-            this.log(userInfo, OperationLog.OperationType.OPERATION_SYNC, OperationLog.OperationTarget.SYNC_SERVICE, syncConfig, remark(userInfo, syncConfig));
+            this.log(userInfo, OperationLog.OperationType.OPERATION_SYNC, OperationLog.OperationTarget.SYNC_SERVICE, syncConfig, remark(userInfo, syncConfig), request);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

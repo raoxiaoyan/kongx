@@ -2,15 +2,14 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Target;
 import com.kongx.serve.entity.gateway.TargetHealth;
-import com.kongx.serve.entity.gateway.Upstream;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.entity.system.SystemProfile;
 import com.kongx.serve.service.gateway.TargetService;
-import com.kongx.serve.service.gateway.UpstreamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
@@ -57,12 +56,11 @@ public class TargetController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = TARGET_URI_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.TARGETS, content = "#target")
     public JsonHeaderWrapper add(UserInfo userInfo, @PathVariable String id, @RequestBody Target target) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
             this.targetFeignService.add(systemProfile(userInfo), id, target);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.TARGETS, target,
-                    remark(userInfo, target, target.getUpstream().getId()));
         } catch (Exception e) {
             e.printStackTrace();
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -79,33 +77,15 @@ public class TargetController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = TARGET_URI_ID_PATH, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.TARGETS, content = "#id 从属于上游服务 #upstreamId")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String upstreamId, @PathVariable String id) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
-            Target target = this.targetFeignService.findById(systemProfile(userInfo), upstreamId, id);
             this.targetFeignService.remove(systemProfile(userInfo), upstreamId, id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.TARGETS, target,
-                    remark(userInfo, target, upstreamId));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
         }
         return jsonHeaderWrapper;
     }
-
-    @Autowired
-    private UpstreamService upstreamService;
-
-    private String remark(UserInfo userInfo, Target target, String upstreamId) {
-        Upstream upstream = null;
-        String remark = "";
-        try {
-            upstream = this.upstreamService.findUpstream(systemProfile(userInfo), upstreamId);
-            remark = String.format("'%s' 从属于上游服务 '%s'", target.getTarget(), upstream.getName());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return remark;
-    }
-
 }

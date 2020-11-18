@@ -2,12 +2,13 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
-import com.kongx.serve.entity.gateway.*;
+import com.kongx.serve.entity.gateway.KongEntity;
+import com.kongx.serve.entity.gateway.Plugin;
+import com.kongx.serve.entity.gateway.PluginVO;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.service.gateway.PluginService;
-import com.kongx.serve.service.gateway.RouteService;
-import com.kongx.serve.service.gateway.ServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.openfeign.FeignClientsConfiguration;
 import org.springframework.context.annotation.Import;
@@ -28,12 +29,6 @@ public class PluginController extends BaseController {
     @Autowired
     private PluginService kongFeignService;
 
-    @Autowired
-    private RouteService routeService;
-
-    @Autowired
-    private ServiceService serviceService;
-
 
     /**
      * 查询所有plugin
@@ -42,6 +37,7 @@ public class PluginController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = PLUGIN_URI, method = RequestMethod.GET)
+    @KongLog(operation = OperationLog.OperationType.OPERATION_ADD, target = OperationLog.OperationTarget.GLOBAL_PLUGIN, content = "#userInfo")
     public JsonHeaderWrapper findAll(UserInfo userInfo) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
@@ -95,13 +91,12 @@ public class PluginController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = PLUGIN_URI, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.GLOBAL_PLUGIN, content = "#plugin")
     public JsonHeaderWrapper<Plugin> add(UserInfo userInfo, @RequestBody Plugin plugin) {
         JsonHeaderWrapper<Plugin> jsonHeaderWrapper = init();
         try {
             Plugin result = this.kongFeignService.add(systemProfile(userInfo), plugin);
             jsonHeaderWrapper.setData(result);
-
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.GLOBAL_PLUGIN, plugin, remark(userInfo, plugin));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -109,24 +104,8 @@ public class PluginController extends BaseController {
         return jsonHeaderWrapper;
     }
 
-    private String remark(UserInfo userInfo, Plugin plugin) {
-        String remark = String.format(" '%s' 从属于全局", plugin.getName());
-        try {
-            if (plugin.getRoute() != null) {
-                Route route = routeService.find(systemProfile(userInfo), plugin.getRoute().getId());
-                remark = String.format("'%s' 从属于路由 '%s'", plugin.getName(), route.getName());
-            }
-            if (plugin.getService() != null) {
-                Service service = this.serviceService.find(systemProfile(userInfo), plugin.getService().getId());
-                remark = String.format("'%s' 从属于服务 '%s'", plugin.getName(), service.getName());
-            }
-        } catch (URISyntaxException e) {
-            return "";
-        }
-        return remark;
-    }
-
     @RequestMapping(value = PLUGIN_ROUTE_URI_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.ROUTE_PLUGIN, content = "#plugin")
     public JsonHeaderWrapper addByRoute(UserInfo userInfo, @PathVariable String routeId, @RequestBody Plugin plugin) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
@@ -141,6 +120,7 @@ public class PluginController extends BaseController {
     }
 
     @RequestMapping(value = PLUGIN_SERVICE_URI_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.SERVICE_PLUGIN, content = "#plugin")
     public JsonHeaderWrapper addByService(UserInfo userInfo, @PathVariable String routeId, @RequestBody Plugin plugin) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
@@ -163,12 +143,12 @@ public class PluginController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = PLUGIN_URI_ID_PATH, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.ROUTE_PLUGIN, content = "#plugin")
     public JsonHeaderWrapper<Plugin> update(UserInfo userInfo, @PathVariable String id, @RequestBody Plugin plugin) {
         JsonHeaderWrapper<Plugin> jsonHeaderWrapper = init();
         try {
             Plugin result = this.kongFeignService.update(systemProfile(userInfo), id, plugin);
             jsonHeaderWrapper.setData(result);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.GLOBAL_PLUGIN, plugin, remark(userInfo, plugin));
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -185,10 +165,9 @@ public class PluginController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = PLUGIN_URI_ID_PATH, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.GLOBAL_PLUGIN, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws URISyntaxException {
-        Plugin plugin = this.find(userInfo, id);
         this.kongFeignService.remove(systemProfile(userInfo), id);
-        this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.GLOBAL_PLUGIN, plugin, remark(userInfo, plugin));
         return findAll(userInfo);
     }
 

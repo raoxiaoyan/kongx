@@ -3,7 +3,7 @@
 
 kongx(最新版本2.0.0)是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
 
-基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器
+基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器，支持在线Shell。
 
 Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/1984321)
 
@@ -17,6 +17,8 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 ## Screenshots
 ![](./docs/screen.png)
 
+![](./docs/kong%20shell.png)
+
 ![](./docs/services.png)
 
 ![](./docs/service1.png)
@@ -27,7 +29,6 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 
 ![](./docs/certificate.png)
 
-![](./docs/kong%20shell.png)
 
 ## Features
 
@@ -54,9 +55,11 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 
 
 ## RoadMap
-1、初步计划kongx自适应kong后续所有版本;(已完成自动适配至2.1.x版本)
+1、初步计划kongx自适应kong后续所有版本;(2.0.0版本，已完成自动适配至2.1.x版本)
 
-2、增加shell界面和可视化管理界面；
+2、增加shell界面和可视化管理界面(2.0.1版本支持, 2020/11/18 已完成)；
+
+2、增加网关流水线的图形化界面设计；
 
 ## 技术支持
 <table>

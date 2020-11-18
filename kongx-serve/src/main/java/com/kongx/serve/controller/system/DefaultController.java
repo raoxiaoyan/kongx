@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public abstract class DefaultController<T, PK> extends BaseController {
@@ -36,12 +37,12 @@ public abstract class DefaultController<T, PK> extends BaseController {
 
 
     @RequestMapping(method = RequestMethod.POST)
-    public JsonHeaderWrapper add(@RequestBody T project, UserInfo userInfo) {
+    public JsonHeaderWrapper add(@RequestBody T project, UserInfo userInfo, HttpServletRequest request) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
             this.baseService.add(project, userInfo);
             jsonHeaderWrapper.setData(project);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, operationTarget(), project);
+            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, operationTarget(), project, request);
         } catch (Exception e) {
             e.printStackTrace();
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -51,12 +52,12 @@ public abstract class DefaultController<T, PK> extends BaseController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.POST)
-    public JsonHeaderWrapper update(@RequestBody T project, UserInfo userInfo) {
+    public JsonHeaderWrapper update(@RequestBody T project, UserInfo userInfo, HttpServletRequest request) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
             this.baseService.update(project, userInfo);
             jsonHeaderWrapper.setData(project);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, operationTarget(), project);
+            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, operationTarget(), project, request);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

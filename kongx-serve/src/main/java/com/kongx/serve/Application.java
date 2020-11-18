@@ -1,7 +1,7 @@
 package com.kongx.serve;
 
 import com.kongx.common.KongxBanner;
-import com.kongx.common.config.KongxConfig;
+import com.kongx.serve.config.KongxConfig;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.boot.SpringApplication;

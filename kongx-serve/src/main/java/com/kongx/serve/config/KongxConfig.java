@@ -1,4 +1,4 @@
-package com.kongx.common.config;
+package com.kongx.serve.config;
 
 import com.kongx.common.aop.LoginValidateInterceptor;
 import com.kongx.common.aop.UserArgumentResolver;
@@ -13,9 +13,10 @@ import java.util.List;
 
 @Configurable
 public class KongxConfig implements WebMvcConfigurer {
-    @Value("${portal.exclude.paths:/index,/authorize/login.do,/inner/monitor/ping,/health/check,/authorize/getUserInfo.do,/authorize/logout.do," +
-            "/authorize/errorTimes.do,/index.html,/cdn/**,/css/**,/img/**,/js/**,/svg/**,/util/**,/favicon.ico}")
+    @Value("${portal.exclude.paths:/shell,/index,/authorize/login.do,/inner/monitor/ping,/health/check,/authorize/getUserInfo.do,/authorize/logout.do," +
+            "/index.html,/cdn/**,/css/**,/img/**,/js/**,/svg/**,/util/**,/favicon.ico}")
     private String excludePaths;
+
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {

@@ -2,6 +2,7 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.Consumer;
 import com.kongx.serve.entity.gateway.KongEntity;
@@ -80,12 +81,12 @@ public class ConsumerController extends BaseController {
     }
 
     @RequestMapping(value = CREDENTIALS_URI, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.CONSUMERS_CERTIFICATE, content = "#map")
     public JsonHeaderWrapper addCredentials(UserInfo userInfo, @RequestBody Map map, @PathVariable String customerId, @PathVariable String entityName) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Map results = this.consumerService.addCredentials(systemProfile(userInfo), map, customerId, entityName);
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.CONSUMERS, map);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -101,12 +102,12 @@ public class ConsumerController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CONSUMER_URI, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.CONSUMERS, content = "#consumer")
     public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Consumer consumer) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Consumer results = this.consumerService.add(systemProfile(userInfo), consumer.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.CONSUMERS, consumer.getUsername());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -123,12 +124,12 @@ public class ConsumerController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CONSUMER_URI_ID, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.CONSUMERS, content = "#consumer")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Consumer consumer) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Consumer results = this.consumerService.update(systemProfile(userInfo), id, consumer.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.CONSUMERS, consumer, consumer.getUsername());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -143,13 +144,13 @@ public class ConsumerController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CREDENTIALS_URI_ID, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.CONSUMERS_CERTIFICATE, content = "#entityId")
     public JsonHeaderWrapper removeCredential(UserInfo userInfo, @PathVariable String customerId, @PathVariable String entityName,
                                               @PathVariable String entityId) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             KongEntity<Map> upstreamKongEntity =
                     this.consumerService.removeCredentials(systemProfile(userInfo), customerId, entityName, entityId);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.CONSUMERS, entityId);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -159,12 +160,12 @@ public class ConsumerController extends BaseController {
     }
 
     @RequestMapping(value = CONSUMER_URI_ID, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.CONSUMERS, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Consumer consumer = this.consumerService.findConsumer(systemProfile(userInfo), id);
             KongEntity<Consumer> upstreamKongEntity = this.consumerService.remove(systemProfile(userInfo), id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.CONSUMERS, consumer);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

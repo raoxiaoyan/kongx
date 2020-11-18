@@ -1,8 +1,9 @@
 package com.kongx.serve.controller.gateway;
 
-import com.kongx.common.aop.PreAuthorize;
+import com.kongx.serve.annotation.Authorize;
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.KongEntity;
 import com.kongx.serve.entity.gateway.Upstream;
@@ -33,7 +34,7 @@ public class UpstreamController extends BaseController {
      * @return
      */
     @RequestMapping(value = UPSTREAM_URI, method = RequestMethod.GET)
-    @PreAuthorize("upstream_view")
+    @Authorize("upstream_view")
     public JsonHeaderWrapper findAll(UserInfo userInfo) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
@@ -54,12 +55,12 @@ public class UpstreamController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = UPSTREAM_URI, method = RequestMethod.POST)
-    public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Upstream upstream) {
+    @KongLog(target = OperationLog.OperationTarget.UPSTREAM, content = "#upstream")
+    public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Upstream upstream) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Upstream results = this.upstreamService.add(systemProfile(userInfo), upstream.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -76,12 +77,12 @@ public class UpstreamController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = UPSTREAM_URI_ID, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.UPSTREAM, content = "#upstream")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Upstream upstream) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Upstream results = this.upstreamService.update(systemProfile(userInfo), id, upstream.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -97,12 +98,11 @@ public class UpstreamController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = UPSTREAM_URI_ID, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.UPSTREAM, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Upstream upstream = this.upstreamService.findUpstream(systemProfile(userInfo), id);
             KongEntity<Upstream> upstreamKongEntity = this.upstreamService.remove(systemProfile(userInfo), id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.UPSTREAM, upstream, upstream.getName());
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

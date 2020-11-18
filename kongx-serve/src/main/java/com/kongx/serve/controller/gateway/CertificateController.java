@@ -2,6 +2,7 @@ package com.kongx.serve.controller.gateway;
 
 import com.kongx.common.core.entity.UserInfo;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.gateway.Certificate;
 import com.kongx.serve.entity.gateway.KongEntity;
@@ -49,12 +50,12 @@ public class CertificateController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CERTIFICATES_URI, method = RequestMethod.POST)
-    public JsonHeaderWrapper addUpstream(UserInfo userInfo, @RequestBody Certificate sni) {
+    @KongLog(target = OperationLog.OperationTarget.Certificate, content = "#sni")
+    public JsonHeaderWrapper add(UserInfo userInfo, @RequestBody Certificate sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Certificate results = this.certificateService.add(systemProfile(userInfo), sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.Certificate, sni);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -71,12 +72,12 @@ public class CertificateController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CERTIFICATES_URI_ID, method = RequestMethod.POST)
+    @KongLog(target = OperationLog.OperationTarget.Certificate, content = "#sni")
     public JsonHeaderWrapper update(UserInfo userInfo, @PathVariable String id, @RequestBody Certificate sni) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             Certificate results = this.certificateService.update(systemProfile(userInfo), id, sni.trim());
             jsonHeaderWrapper.setData(results);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.Certificate, sni, sni.getKey());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
@@ -92,12 +93,11 @@ public class CertificateController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = CERTIFICATES_URI_ID, method = RequestMethod.DELETE)
+    @KongLog(target = OperationLog.OperationTarget.Certificate, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String id) throws Exception {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            Certificate sni = this.certificateService.findEntity(systemProfile(userInfo), id);
             KongEntity<Certificate> upstreamKongEntity = this.certificateService.remove(systemProfile(userInfo), id);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_DELETE, OperationLog.OperationTarget.Certificate, sni);
             jsonHeaderWrapper.setData(upstreamKongEntity.getData());
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

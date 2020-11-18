@@ -1,13 +1,13 @@
 package com.kongx.serve.controller.system;
 
-import com.kongx.common.core.entity.UserInfo;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
 import com.kongx.common.utils.Jackson2Helper;
+import com.kongx.serve.annotation.KongLog;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.entity.system.ServerConfig;
 import com.kongx.serve.service.system.ServerConfigService;
-import com.fasterxml.jackson.core.type.TypeReference;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,11 +28,11 @@ public class ServerConfigController extends BaseController {
     }
 
     @RequestMapping(value = "/configs", method = RequestMethod.POST)
-    public JsonHeaderWrapper add(@RequestBody ServerConfig serverConfig, UserInfo userInfo) {
+    @KongLog(target = OperationLog.OperationTarget.SERVER_CONFIG, content = "#serverConfig.configKey")
+    public JsonHeaderWrapper add(@RequestBody ServerConfig serverConfig) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             this.serverConfigService.addServerConfig(serverConfig);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_ADD, OperationLog.OperationTarget.SERVER_CONFIG, serverConfig, serverConfig.getConfigKey());
         } catch (Exception e) {
             jsonHeaderWrapper.setErrmsg(e.getMessage());
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
@@ -41,11 +41,11 @@ public class ServerConfigController extends BaseController {
     }
 
     @RequestMapping(value = "/configs/{id}", method = RequestMethod.POST)
-    public JsonHeaderWrapper update(@PathVariable int id, @RequestBody ServerConfig serverConfig, UserInfo userInfo) {
+    @KongLog(target = OperationLog.OperationTarget.SERVER_CONFIG, content = "#serverConfig.configKey")
+    public JsonHeaderWrapper update(@PathVariable int id, @RequestBody ServerConfig serverConfig) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
             this.serverConfigService.updateServerConfig(serverConfig);
-            this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, OperationLog.OperationTarget.SERVER_CONFIG, serverConfig, serverConfig.getConfigKey());
         } catch (Exception e) {
             jsonHeaderWrapper.setErrmsg(e.getMessage());
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

@@ -49,7 +49,7 @@ public class AuthorizeController extends BaseController {
         try {
             UserInfo userInfo = userInfoService.login(request.getParameter("username"), request.getParameter("password"));
             jsonHeaderWrapper.setData(JWTTokenUtils.getToken(userInfo));
-            this.log(userInfo, OperationLog.OperationType.OPERATION_LOGIN, OperationLog.OperationTarget.SYSTEM, userInfo);
+            this.log(userInfo, OperationLog.OperationType.OPERATION_LOGIN, OperationLog.OperationTarget.SYSTEM, userInfo, request);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(500);
             jsonHeaderWrapper.setErrmsg(e.getMessage());
