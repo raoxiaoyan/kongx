@@ -37,7 +37,6 @@ public class PluginController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = PLUGIN_URI, method = RequestMethod.GET)
-    @KongLog(operation = OperationLog.OperationType.OPERATION_ADD, target = OperationLog.OperationTarget.GLOBAL_PLUGIN, content = "#userInfo")
     public JsonHeaderWrapper findAll(UserInfo userInfo) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
