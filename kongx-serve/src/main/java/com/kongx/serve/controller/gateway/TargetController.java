@@ -60,7 +60,7 @@ public class TargetController extends BaseController {
     public JsonHeaderWrapper add(UserInfo userInfo, @PathVariable String id, @RequestBody Target target) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
-            this.targetFeignService.add(systemProfile(userInfo), id, target);
+            jsonHeaderWrapper.setData(this.targetFeignService.add(systemProfile(userInfo), id, target));
         } catch (Exception e) {
             e.printStackTrace();
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());

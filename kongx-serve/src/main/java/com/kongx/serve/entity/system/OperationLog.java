@@ -98,6 +98,7 @@ public class OperationLog {
         USER_INFO("user_info", "用户信息"),
         SYSTEM_PROFILE("system_profile", "系统环境"),
         SERVER_CONFIG("service_config", "系统配置"),
+        SERVICE_PIPELINE("service_pipeline", "网关服务流水线"),
         LOGGER_LEVEL("logger_level", "日志级别");
         private String type;
         private String target;

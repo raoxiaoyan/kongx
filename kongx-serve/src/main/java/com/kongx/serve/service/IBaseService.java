@@ -17,6 +17,9 @@ public interface IBaseService<T, PK> {
 
     void add(T entity, UserInfo userInfo);
 
+    default void remove(int pk) {
+    }
+
     void update(T entity, UserInfo userInfo);
 
     T findById(PK id);

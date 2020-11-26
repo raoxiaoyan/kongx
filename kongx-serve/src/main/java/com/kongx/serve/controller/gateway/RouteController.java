@@ -113,8 +113,8 @@ public class RouteController extends BaseController {
     public JsonHeaderWrapper add(UserInfo userInfo, @PathVariable String serviceId, @RequestBody Route route) {
         JsonHeaderWrapper jsonHeaderWrapper = this.init();
         try {
-            KongEntity<Route> routeKongEntity = this.kongFeignService.add(systemProfile(userInfo), serviceId, route.clear());
-            jsonHeaderWrapper.setData(routeKongEntity.getData());
+            Route results = this.kongFeignService.add(systemProfile(userInfo), serviceId, route.clear());
+            jsonHeaderWrapper.setData(results);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

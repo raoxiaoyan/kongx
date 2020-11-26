@@ -6,6 +6,7 @@ import com.kongx.common.jsonwrapper.JsonHeaderWrapper;
 import com.kongx.serve.controller.BaseController;
 import com.kongx.serve.entity.system.OperationLog;
 import com.kongx.serve.service.IBaseService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -58,6 +59,30 @@ public abstract class DefaultController<T, PK> extends BaseController {
             this.baseService.update(project, userInfo);
             jsonHeaderWrapper.setData(project);
             this.log(userInfo, OperationLog.OperationType.OPERATION_UPDATE, operationTarget(), project, request);
+        } catch (Exception e) {
+            jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
+            jsonHeaderWrapper.setErrmsg(e.getMessage());
+        }
+        return jsonHeaderWrapper;
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.GET)
+    public JsonHeaderWrapper findById(@PathVariable Integer id) {
+        JsonHeaderWrapper jsonHeaderWrapper = init();
+        try {
+            jsonHeaderWrapper.setData(this.baseService.findById(id));
+        } catch (Exception e) {
+            jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
+            jsonHeaderWrapper.setErrmsg(e.getMessage());
+        }
+        return jsonHeaderWrapper;
+    }
+
+    @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
+    public JsonHeaderWrapper removeById(@PathVariable Integer id) {
+        JsonHeaderWrapper jsonHeaderWrapper = init();
+        try {
+            this.baseService.remove(id);
         } catch (Exception e) {
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());

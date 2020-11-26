@@ -63,9 +63,8 @@ public class TargetService extends AbstractCacheService {
      * @return
      * @throws URISyntaxException
      */
-    public KongEntity<Target> add(SystemProfile systemProfile, String id, Target target) throws URISyntaxException {
-        this.targetFeignService.add(uri(systemProfile, String.format(TARGET_URI, id)), target);
-        return findAll(systemProfile, id);
+    public Target add(SystemProfile systemProfile, String id, Target target) throws URISyntaxException {
+        return this.targetFeignService.add(uri(systemProfile, String.format(TARGET_URI, id)), target);
     }
 
     /**

@@ -74,9 +74,10 @@ public class RouteService extends AbstractCacheService<KongEntity<Route>> {
      * @return
      * @throws URISyntaxException
      */
-    public KongEntity<Route> add(SystemProfile systemProfile, String serviceId, Route route) throws URISyntaxException {
-        this.kongFeignService.add(uri(systemProfile, String.format(ROUTE_SERVICE_URI, serviceId)), route);
-        return this.refresh(systemProfile, CACHE_ROUTES_KEY).getData();
+    public Route add(SystemProfile systemProfile, String serviceId, Route route) throws URISyntaxException {
+        Route results = this.kongFeignService.add(uri(systemProfile, String.format(ROUTE_SERVICE_URI, serviceId)), route);
+        this.refresh(systemProfile, CACHE_ROUTES_KEY);
+        return results;
     }
 
     /**
