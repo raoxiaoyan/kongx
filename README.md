@@ -1,7 +1,7 @@
 # kongx
 
 
-kongx(最新版本2.0.1)是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
+kongx(最新版本2.1.0)是网关kong的可视化界面管理平台(参考konga的部分界面布局方式)，能够集中化管理应用不同环境的网关配置，提供同步各环境的网关配置功能，并且具备规范的权限管理、参数配置、环境管理及日志审计等特性。
 
 基于Spring Boot和Spring Cloud开发，打包后可以直接运行，不需要额外安装Tomcat等应用容器，支持在线Shell。
 
@@ -11,6 +11,8 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/readme.md)
 
+可视化设计网关pipeline使用文档请参考[网关流水线]()
+
 演示地址：http://49.232.174.106/ (用户名: guest/123456)
 
 系统环境默认用户：admin/123456(部署登录后，请前往'个人设置'页面，及时修改密码)
@@ -19,11 +21,9 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 
 ![](./docs/kong%20shell.png)
 
-![](./docs/services.png)
-
-![](./docs/service1.png)
-
 ![](./docs/service2.png)
+
+![可视化网关流水线](./docs/pipeline.png)
 
 ![](./docs/consumers.png)
 
@@ -33,6 +33,7 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 ## Features
 
 - Kong Manage:Upstream,Service,Route,Plugin,Consumer,Certificates及Ca Certificates等
+- 新增网关流水线
 - 同步Kong配置:不同环境间的kong配置进行同步，便于多环境配置管理； 
 - 系统管理:具有完善的权限管理系统，包括：用户管理、菜单管理、角色管理及用户组管理等功能；
 - 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
@@ -48,6 +49,8 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 - [Kong与consul自主发现服务](https://www.kancloud.cn/raoxiaoyan/kongx/1984357)
 - 如何应用灰度插件(canary)及使用场景介绍
 - kong插件开发实践
+- [kong的健康检查及熔断](https://www.kancloud.cn/raoxiaoyan/kongx/2044771)
+- kong网关流水线
 - 整理中...尽情期待
 
 
@@ -69,8 +72,8 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
   </thead>
   <tbody>
     <tr>
-      <td><img src="https://raw.githubusercontent.com/raoxiaoyan/kongx/master/docs/kongx_tech1.png" alt="tech-support-qq-1"></td>
-      <td><img src="https://raw.githubusercontent.com/raoxiaoyan/kongx/master/docs/cooperate.jpg" alt="cooperate" width="230px;"></td>
+      <td><img src="./docs/kongx_tech1.png" alt="tech-support-qq-1"></td>
+      <td><img src="./docs/cooperate.jpg" alt="cooperate" width="230px;"></td>
     </tr>
   </tbody>
 </table>
@@ -81,6 +84,7 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 | --- | --- | --- | --- | 
 | 1 | 1.2.x | 1.2.x |  1.2.x测试|
 | 1 | 2.0.0 | 1.2.x、1.3.x、1.4.x、1.5.x、2.0.x |  目前仅针对kong版本1.2.x、1.3.x测试通过,对1.4.x以上版本与1.3.x对比差异，原则上基础功能全部可用，(参考差异对比)[https://www.kancloud.cn/raoxiaoyan/kongx/1991178]|
+| 1 | 2.1.0 | 1.2.x、1.3.x、1.4.x、1.5.x、2.0.x |  目前仅针对kong版本1.2.x、1.3.x测试通过,对1.4.x以上版本与1.3.x对比差异，原则上基础功能全部可用，(参考差异对比)[https://www.kancloud.cn/raoxiaoyan/kongx/1991178]|
 
 ## Upgrade
 [更新历史](docs/upgrade.md)

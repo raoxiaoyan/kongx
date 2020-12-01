@@ -67,7 +67,7 @@ public abstract class DefaultController<T, PK> extends BaseController {
     }
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
-    public JsonHeaderWrapper findById(@PathVariable Integer id) {
+    public JsonHeaderWrapper findById(UserInfo userInfo, @PathVariable Integer id) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {
             jsonHeaderWrapper.setData(this.baseService.findById(id));

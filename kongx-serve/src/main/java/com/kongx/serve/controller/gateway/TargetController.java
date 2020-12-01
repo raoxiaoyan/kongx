@@ -62,7 +62,6 @@ public class TargetController extends BaseController {
         try {
             jsonHeaderWrapper.setData(this.targetFeignService.add(systemProfile(userInfo), id, target));
         } catch (Exception e) {
-            e.printStackTrace();
             jsonHeaderWrapper.setStatus(JsonHeaderWrapper.StatusEnum.Failed.getCode());
             jsonHeaderWrapper.setErrmsg(e.getMessage());
         }
@@ -77,7 +76,7 @@ public class TargetController extends BaseController {
      * @throws URISyntaxException
      */
     @RequestMapping(value = TARGET_URI_ID_PATH, method = RequestMethod.DELETE)
-    @KongLog(target = OperationLog.OperationTarget.TARGETS, content = "#id 从属于上游服务 #upstreamId")
+    @KongLog(target = OperationLog.OperationTarget.TARGETS, content = "#id")
     public JsonHeaderWrapper remove(UserInfo userInfo, @PathVariable String upstreamId, @PathVariable String id) {
         JsonHeaderWrapper jsonHeaderWrapper = init();
         try {

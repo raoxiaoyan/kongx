@@ -183,9 +183,7 @@ public class JsonHeaderWrapper<T extends Object> {
         Success(0, "全部成功"), //
         Success4M(200, "全部成功"),
         //无线端统一使用200作为成功代码返回
-        PartialSuccess(202, "库存数不足"), //
-        Timeout(405, "接口超时返回"), //
-        OverFlowCtrl(406, "客户流量超量"), //
+        NOT_FOUND(404, "not found"),
         Failed(500, "全部失败"), //
         ParamError(505, "传入参数错误"), //
         UnknownOther(599, "未知错误,系统错误");

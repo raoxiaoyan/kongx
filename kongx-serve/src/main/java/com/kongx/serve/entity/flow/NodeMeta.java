@@ -8,6 +8,8 @@ import java.util.Map;
 public class NodeMeta {
     private Map entity;
     private String id;
+    private NodeMeta parent;
     private String name;
     private String prop;
+    private boolean ready;
 }

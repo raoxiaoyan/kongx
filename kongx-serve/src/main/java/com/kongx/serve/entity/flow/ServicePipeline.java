@@ -14,4 +14,5 @@ public class ServicePipeline extends BaseEntity {
     private List linkList = new ArrayList<Map>();
     private List nodeList = new ArrayList<FlowNode>();
     private List origin = new ArrayList<Integer>();
+    private String profile;
 }
