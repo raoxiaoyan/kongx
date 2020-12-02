@@ -11,7 +11,7 @@ Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/19
 
 Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/readme.md)
 
-可视化设计网关pipeline使用文档请参考[网关流水线]()
+可视化设计网关pipeline使用文档请参考[网关流水线](https://www.kancloud.cn/raoxiaoyan/kongx/2055265)
 
 演示地址：http://49.232.174.106/ (用户名: guest/123456)
 
@@ -33,7 +33,7 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 ## Features
 
 - Kong Manage:Upstream,Service,Route,Plugin,Consumer,Certificates及Ca Certificates等
-- 新增网关流水线
+- 支持网关流水线
 - 同步Kong配置:不同环境间的kong配置进行同步，便于多环境配置管理； 
 - 系统管理:具有完善的权限管理系统，包括：用户管理、菜单管理、角色管理及用户组管理等功能；
 - 参数管理:具有良好的扩展性，基于平台的参数管理可扩展多环境及服务管理；包括：环境管理、参数参数等
@@ -62,7 +62,7 @@ Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/rea
 
 2、增加shell界面和可视化管理界面(2.0.1版本支持, 2020/11/18 已完成)；
 
-2、增加网关流水线的图形化界面设计；
+3、增加网关流水线的图形化界面设计；
 
 ## 技术支持
 <table>
