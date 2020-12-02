@@ -8,7 +8,7 @@ https://www.runoob.com/docker/docker-compose.html
 ## 2. 安装准备
 将docker-quick-start 上传到linux目录下（如：/opt/kongx）
 ## 3. 下载安装包
-从gitee下载：点击[发布版本](https://gitee.com/raoxy/kongx/releases)下载kong-serve-2.0.0.zip
+从gitee下载：点击[发布版本](https://gitee.com/raoxy/kongx/releases)下载kongx-serve-2.0.0.zip
 下载后，安装目录结构如下显示：
 ```text
 ./
