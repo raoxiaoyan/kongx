@@ -7,6 +7,8 @@ kongx(最新版本2.1.0)是网关kong的可视化界面管理平台(参考konga�
 
 Kongx 使用指南请参考：[Wiki](https://www.kancloud.cn/raoxiaoyan/kongx/1984321)
 
+kongxe的前端页面[kongx-web](https://gitee.com/raoxy/kongx-web)
+
 平台快速部署请参见[Quick Start](https://www.kancloud.cn/raoxiaoyan/kongx/1984323)
 
 Docker部署(2.0.0+支持)请参见[Docker Quick Start](./docker-quick-start/readme.md)
