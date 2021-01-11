@@ -15,7 +15,6 @@ import org.springframework.context.annotation.Import;
 @Import(KongxConfig.class)
 @MapperScan("com.kongx.serve.mapper")
 public class Application {
-
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(Application.class);
         application.setBanner(new KongxBanner());
