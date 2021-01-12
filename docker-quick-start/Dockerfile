@@ -2,7 +2,7 @@ FROM openjdk:8-jre-alpine
 
 
 ENV KONGX_RUN_MODE "Docker"
-ENV VERSION 2.1.0
+ENV VERSION 2.2.0
 ENV SERVER_PORT 8095
 
 RUN \
